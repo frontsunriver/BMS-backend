@@ -76,6 +76,7 @@ $route['api/apartment/delete']['post'] = 'Apartment/delete';
 //------------Noc Move Routes---------------
 $route['api/move/getList']['post'] = 'Movement/getList';
 $route['api/move/add']['post'] = 'Movement/add';
+$route['api/move/outAdd']['post'] = 'Movement/outAdd';
 $route['api/move/update']['post'] = 'Movement/update';
 $route['api/move/delete']['post'] = 'Movement/delete';
 
@@ -96,4 +97,10 @@ $route['api/messages/getList']['post'] = 'Messages/getList';
 $route['api/messages/add']['post'] = 'Messages/add';
 $route['api/messages/update']['post'] = 'Messages/update';
 $route['api/messages/delete']['post'] = 'Messages/delete';
+
+//------------Units Routes---------------
+$route['api/unit/getList']['post'] = 'Unit/getList';
+$route['api/unit/add']['post'] = 'Unit/add';
+$route['api/unit/update']['post'] = 'Unit/update';
+$route['api/unit/delete']['post'] = 'Unit/delete';
 

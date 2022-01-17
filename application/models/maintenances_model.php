@@ -13,7 +13,12 @@ class Maintenances_Model extends CI_Model
 
 	public function getList($param){
 		$this->db->select("tbl_maintenances.*, tbl_buildings.name as building_name");
-		$this->db->join('tbl_buildings', 'tbl_apartments.building_id = tbl_buildings.id');
+		$this->db->join('tbl_buildings', 'tbl_maintenances.building_id = tbl_buildings.id');
+
+		if(isset($param['user_id'])) {
+			$this->db->where('tbl_maintenances.user_id', $param['user_id']);
+		}
+		
 		$query = $this->db->get($this->tbl_name);
 		if ($query->num_rows() > 0) {
 			return $query->result_array();

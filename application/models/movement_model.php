@@ -18,6 +18,9 @@ class Movement_Model extends CI_Model
 		if(isset($param['move_type'])) {
 			$this->db->where('tbl_noc_move.move_type', $param['move_type']);
 		}
+		if(isset($param['user_id'])) {
+			$this->db->where('tbl_noc_move.user_id', $param['user_id']);
+		}
 		
 		$query = $this->db->get($this->tbl_name);
 		if ($query->num_rows() > 0) {

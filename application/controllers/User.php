@@ -24,7 +24,8 @@ class User extends My_Controller
     }
 
     public function login() {
-        $param = $_POST;
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
         $result = array();
         if(!isset($param['email']) && !isset($param['password'])) {
             $result['message'] = "Please insert email or password";
