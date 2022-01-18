@@ -12,7 +12,12 @@ class Messages_Model extends CI_Model
     }
 
 	public function getList($param){
-		$this->db->select("*");
+		$this->db->select("tbl_messages.*, tbl_users.*");
+		$this->db->join('tbl_users', 'tbl_messages.user_id = tbl_users.id');
+
+		if(isset($param['notify_id'])) {
+			$this->db->where('tbl_messages.notify_id', $param['notify_id']);
+		}
 		$query = $this->db->get($this->tbl_name);
 		if ($query->num_rows() > 0) {
 			return $query->result_array();

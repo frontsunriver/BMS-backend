@@ -12,8 +12,11 @@ class Notify_Model extends CI_Model
     }
 
 	public function getList($param){
-		$this->db->select("tbl_notify.*, tbl_users.name as user_name");
+		$this->db->select("tbl_notify.*");
 		$this->db->join('tbl_users', 'tbl_notify.user_id = tbl_users.id');
+		if(isset($param['user_id'])) {
+			$this->db->where('tbl_notify.user_id', $param['user_id']);
+		}
 		$query = $this->db->get($this->tbl_name);
 		if ($query->num_rows() > 0) {
 			return $query->result_array();

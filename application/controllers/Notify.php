@@ -12,7 +12,8 @@ class Notify extends My_Controller
     }
 
     public function getList() {
-        $param = $_POST;
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
         $result = array();
         $list = array();
         $list = $this->notifyModel->getList($param);
@@ -23,7 +24,14 @@ class Notify extends My_Controller
 
     public function add() {
         $param = $_POST;
-        if($this->notifyModel->add($param)) {
+        $arr = array();
+        $arr['content'] = $_POST['content'];
+        $arr['user_id'] = $_POST['user_id'];
+        $arr['submit_date'] = date('Y-m-d');
+
+        $arr['photofile'] = $this->uploadFile($_FILES['photofile']);
+
+        if($this->notifyModel->add($arr)) {
             $result['message'] = "Add successfully.";
             $result['success'] = true;
         }else {

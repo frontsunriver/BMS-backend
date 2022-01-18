@@ -51,6 +51,12 @@ class User extends My_Controller
 
     public function update() {
         $param = $_POST;
+        if(isset($param['password'])) {
+            $param['password'] = md5($param['password']);
+        }
+        if(!empty($_FILES['passport']['name'])){
+            $param['passport'] = $this->fileUpload($_FILES['passport']);
+        }
         if($this->userModel->update($param)) {
             $result['message'] = "Update successfully.";
             $result['success'] = true;
