@@ -104,3 +104,5 @@ $route['api/unit/add']['post'] = 'Unit/add';
 $route['api/unit/update']['post'] = 'Unit/update';
 $route['api/unit/delete']['post'] = 'Unit/delete';
 
+//------------Other Routes---------------
+$route['api/import/excel']['post'] = 'Home/importExcel';

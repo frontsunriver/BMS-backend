@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+require_once(__DIR__."/../core/My_controller.php");
 /**
 *  User Controller
 */
@@ -12,12 +12,11 @@ class User extends My_Controller
     }
 
     public function getUserList() {
-        $param = $_POST;
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
         $result = array();
         $userList = array();
-        if(isset($param['email'])) {
-            $userList = $this->userModel->getUserList($param);
-        }
+        $userList = $this->userModel->getUserList($param);
         $result['success'] = true;
         $result['data'] = $userList;
         $this->returnVal($result);
@@ -55,7 +54,7 @@ class User extends My_Controller
             $param['password'] = md5($param['password']);
         }
         if(!empty($_FILES['passport']['name'])){
-            $param['passport'] = $this->fileUpload($_FILES['passport']);
+            $param['passport'] = $this->uploadFile($_FILES['passport']);
         }
         if($this->userModel->update($param)) {
             $result['message'] = "Update successfully.";
@@ -69,6 +68,12 @@ class User extends My_Controller
 
     public function add() {
         $param = $_POST;
+        if(isset($param['password'])) {
+            $param['password'] = md5($param['password']);
+        }
+        if(!empty($_FILES['passport']['name'])){
+            $param['passport'] = $this->uploadFile($_FILES['passport']);
+        }
         if($this->userModel->add($param)) {
             $result['message'] = "Add successfully.";
             $result['success'] = true;

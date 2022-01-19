@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+require_once(__DIR__."/../core/My_controller.php");
 /**
 *  Movement Controller
 */
@@ -130,7 +130,8 @@ class Movement extends My_Controller
     }
 
     public function update() {
-        $param = $_POST;
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
         if($this->movementModel->update($param)) {
             $result['message'] = "Update successfully.";
             $result['success'] = true;

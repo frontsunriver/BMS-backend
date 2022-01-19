@@ -12,14 +12,17 @@ class Movement_Model extends CI_Model
     }
 
 	public function getList($param){
-		$this->db->select("tbl_noc_move.*, tbl_buildings.name as building_name");
+		$this->db->select("tbl_noc_move.*, tbl_buildings.name as building_name, tbl_users.first_name, tbl_users.last_name");
 		$this->db->join('tbl_buildings', 'tbl_noc_move.building_id = tbl_buildings.id');
-		
+		$this->db->join('tbl_users', 'tbl_noc_move.user_id = tbl_users.id');
 		if(isset($param['move_type'])) {
 			$this->db->where('tbl_noc_move.move_type', $param['move_type']);
 		}
 		if(isset($param['user_id'])) {
 			$this->db->where('tbl_noc_move.user_id', $param['user_id']);
+		}
+		if(isset($param['status'])) {
+			$this->db->where('tbl_noc_move.status', $param['status']);
 		}
 		
 		$query = $this->db->get($this->tbl_name);

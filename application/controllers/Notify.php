@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+require_once(__DIR__."/../core/My_controller.php");
 /**
 *  Notify Controller
 */
@@ -28,8 +28,12 @@ class Notify extends My_Controller
         $arr['content'] = $_POST['content'];
         $arr['user_id'] = $_POST['user_id'];
         $arr['submit_date'] = date('Y-m-d');
+        $arr['type'] = $_POST['type'];
 
-        $arr['photofile'] = $this->uploadFile($_FILES['photofile']);
+        if(!empty($_FILES['photofile']['name'])){
+            $arr['photofile'] = $this->uploadFile($_FILES['photofile']);    
+        }
+        
 
         if($this->notifyModel->add($arr)) {
             $result['message'] = "Add successfully.";
