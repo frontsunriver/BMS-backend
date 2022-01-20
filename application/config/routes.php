@@ -56,13 +56,16 @@ $route['translate_uri_dashes'] = FALSE;
 // Custom Routes
 //------------User Routes---------------
 $route['api/user/getUserList']['post'] = 'User/getUserList';
+$route['api/user/search']['post'] = 'User/search';
 $route['api/user/login']['post'] = 'User/login';
+$route['api/user/register']['post'] = 'User/register';
 $route['api/user/update']['post'] = 'User/update';
 $route['api/user/add']['post'] = 'User/add';
 $route['api/user/delete']['post'] = 'User/delete';
 
 //------------Building Routes---------------
 $route['api/building/getList']['post'] = 'Building/getList';
+$route['api/building/search']['post'] = 'Building/search';
 $route['api/building/add']['post'] = 'Building/add';
 $route['api/building/update']['post'] = 'Building/update';
 $route['api/building/delete']['post'] = 'Building/delete';

@@ -22,6 +22,17 @@ class User extends My_Controller
         $this->returnVal($result);
     }
 
+    public function search() {
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
+        $result = array();
+        $userList = array();
+        $userList = $this->userModel->searchResult($param);
+        $result['success'] = true;
+        $result['data'] = $userList;
+        $this->returnVal($result);
+    }
+
     public function login() {
         $request_body = file_get_contents('php://input');
         $param = json_decode($request_body, true);
@@ -44,6 +55,21 @@ class User extends My_Controller
                 $result['message'] = "User does not exist";
                 $result['success'] = false;
             }
+        }
+        $this->returnVal($result);
+    }
+
+    public function register() {
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
+        $result = array();
+        $param['password'] = md5($param['password']);
+        if($this->userModel->register($param)) {
+            $result['message'] = "Register Successfully.";
+            $result['success'] = true;
+        }else {
+            $result['message'] = "Something error.";
+            $result['success'] = false;
         }
         $this->returnVal($result);
     }

@@ -56,6 +56,14 @@ class User_Model extends CI_Model
 			return false;
 	}
 
+	public function register($param) {
+		$this->db->insert($this->tbl_name, $param);
+		if($this->db->affected_rows() > 0)
+			return true;
+		else
+			return false;
+	}
+
 	public function add($param) {
 		$this->db->insert($this->tbl_name, $param);
 		if($this->db->affected_rows() > 0)
@@ -94,5 +102,33 @@ class User_Model extends CI_Model
 			return true;
 		else
 			return false;
+	}
+
+	public function searchResult($param) {
+		$this->db->select("*");
+		$this->db->like('first_name', $param['query'], 'both');
+		$this->db->like('last_name', $param['query'], 'both');
+		$this->db->or_like('email', $param['query'], 'both');
+		$this->db->or_like('mobile', $param['query'], 'both');
+		$this->db->or_like('address', $param['query'], 'both');
+		$data = array();
+		$query = $this->db->get($this->tbl_name);
+		if ($query->num_rows() > 0) {
+			$result = $query->result_array();
+			foreach ($result as $key => $value) {
+				$this->db->select('*');
+				$this->db->join('tbl_buildings', 'tbl_units.building_id = tbl_buildings.id', 'left');
+				$this->db->where('tbl_units.user_id', $value['id']);
+				$sub_query = $this->db->get('tbl_units');
+				if($sub_query->num_rows() > 0){
+					array_push($data, array('user_info' => $value, 'building_info' => $sub_query->result_array()));
+				}else{
+					array_push($data, array('user_info' => $value, 'building_info' => []));
+				}
+			}
+			return $data;
+		}else {
+			return array();
+		}
 	}
 }

@@ -49,4 +49,15 @@ class Building_Model extends CI_Model
 		else
 			return false;
 	}
+
+	public function searchResult($param) {
+		$this->db->select("*");
+		$this->db->like('name', $param['query'], 'both');
+		$query = $this->db->get($this->tbl_name);
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
 }

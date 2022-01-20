@@ -56,4 +56,15 @@ class Building extends My_Controller
         }
         $this->returnVal($result);
     }
+
+    public function search() {
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
+        $result = array();
+        $list = array();
+        $list = $this->buildingModel->searchResult($param);
+        $result['success'] = true;
+        $result['data'] = $list;
+        $this->returnVal($result);
+    }
 }
