@@ -21,6 +21,16 @@ class Building extends My_Controller
         $this->returnVal($result);
     }
 
+    public function getListWithUnit() {
+        $param = $_POST;
+        $result = array();
+        $list = array();
+        $list = $this->buildingModel->getListWithUnit($param);
+        $result['success'] = true;
+        $result['data'] = $list;
+        $this->returnVal($result);
+    }
+
     public function add() {
         $param = $_POST;
         if($this->buildingModel->add($param)) {

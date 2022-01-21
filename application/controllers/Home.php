@@ -9,6 +9,8 @@ class Home extends My_Controller
     public function __construct() {
         parent::__construct();
         $this->load->model('user_model','userModel');
+        $this->load->model('building_model', 'buildingModel');
+        $this->load->model('unit_model', 'unitModel');
         $this->load->library('excel');
     }
 
@@ -63,6 +65,81 @@ class Home extends My_Controller
 				}
 
 		        $result['success'] = true;
+			}catch (Exception $e){
+				$result['success'] = false;
+		        $result['message'] = 'something went wrong.';
+			}
+		}	
+		$this->returnVal($result);
+    }
+
+    public function importBuildingExcel() {
+		$list = array();
+    	$result = array();
+    	$result['success'] = false;
+        $result['message'] = 'something went wrong.';
+
+	  	if(isset($_FILES["importexcel"]["name"]))
+		{
+			$path = $_FILES["importexcel"]["tmp_name"];
+			$object = PHPExcel_IOFactory::load($path);
+			try{
+				foreach($object->getWorksheetIterator() as $worksheet)
+				{
+					$highestRow = $worksheet->getHighestRow();
+					$highestColumn = $worksheet->getHighestColumn();
+					for($row=2; $row<=$highestRow; $row++)
+					{
+						$name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+						$address = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+						$data = array(
+							'name'		=>	$name,
+							'address'	=>	$address
+						);
+						$this->buildingModel->add($data);
+					}
+				}
+
+		        $result['success'] = true;
+		        $result['message'] = 'Success.';
+			}catch (Exception $e){
+				$result['success'] = false;
+		        $result['message'] = 'something went wrong.';
+			}
+		}	
+		$this->returnVal($result);
+    }
+
+    public function importUnitExcel() {
+    	$building_id = $_POST['building_id'];
+		$list = array();
+    	$result = array();
+    	$result['success'] = false;
+        $result['message'] = 'something went wrong.';
+
+	  	if(isset($_FILES["importexcel"]["name"]))
+		{
+			$path = $_FILES["importexcel"]["tmp_name"];
+			$object = PHPExcel_IOFactory::load($path);
+			try{
+				foreach($object->getWorksheetIterator() as $worksheet)
+				{
+					$highestRow = $worksheet->getHighestRow();
+					$highestColumn = $worksheet->getHighestColumn();
+					for($row=2; $row<=$highestRow; $row++)
+					{
+						$name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+						
+						$data = array(
+							'unit_name'		=>	$name,
+							'building_id'	=>	$building_id
+						);
+						$this->unitModel->add($data);
+					}
+				}
+
+		        $result['success'] = true;
+		        $result['message'] = 'Success.';
 			}catch (Exception $e){
 				$result['success'] = false;
 		        $result['message'] = 'something went wrong.';

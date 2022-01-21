@@ -65,6 +65,7 @@ $route['api/user/delete']['post'] = 'User/delete';
 
 //------------Building Routes---------------
 $route['api/building/getList']['post'] = 'Building/getList';
+$route['api/building/getListWithUnit']['post'] = 'Building/getListWithUnit';
 $route['api/building/search']['post'] = 'Building/search';
 $route['api/building/add']['post'] = 'Building/add';
 $route['api/building/update']['post'] = 'Building/update';
@@ -109,3 +110,6 @@ $route['api/unit/delete']['post'] = 'Unit/delete';
 
 //------------Other Routes---------------
 $route['api/import/excel']['post'] = 'Home/importExcel';
+$route['api/import/building_excel']['post'] = 'Home/importBuildingExcel';
+$route['api/import/unit_excel']['post'] = 'Home/importUnitExcel';
+

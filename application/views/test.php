@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <form method="POST" enctype="multipart/form-data" action="/bms/home/importExcel">
+        <form method="POST" enctype="multipart/form-data" action="/bms/home/importBuildingExcel">
 			<input type="file" name="importexcel" id="importexcel"/>
 			<input type="submit" value="submit" />
 		</form>
