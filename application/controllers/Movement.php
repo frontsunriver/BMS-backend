@@ -129,6 +129,25 @@ class Movement extends My_Controller
         $this->returnVal($result);
     }
 
+    public function maintenanceAdd() {
+        $param = $_POST;
+        $arr = array();
+        $arr['building_id'] = $_POST['building_id'];
+        $arr['unit_id'] = $_POST['unit_id'];
+        $arr['move_type'] = $_POST['move_type'];
+        $arr['move_date'] = $_POST['move_date'];
+        $arr['user_id'] = $_POST['user_id'];
+        $arr['trade_licence'] = $this->uploadFile($_FILES['trade_licence']);
+        if($this->movementModel->add($arr)) {
+            $result['message'] = "Add successfully.";
+            $result['success'] = true;
+        }else {
+            $result['message'] = "Something error.";
+            $result['success'] = false;
+        }
+        $this->returnVal($result);
+    }
+
     public function update() {
         $request_body = file_get_contents('php://input');
         $param = json_decode($request_body, true);

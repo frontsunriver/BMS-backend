@@ -28,7 +28,7 @@ class Building_Model extends CI_Model
 		if ($query->num_rows() > 0) {
 			$rows = $query->result_array();
 			foreach ($rows as $key => $value) {
-				$query = "SELECT tbl_buildings.id, IFNULL(a.cnt, 0) as cnt  from tbl_buildings left join (SELECT IFNULL(count(*),0) as cnt, building_id FROM `tbl_units` group by building_id) a on a.building_id = tbl_buildings.id where tbl_buildings.id = ".$value['id'];
+				$query = "SELECT tbl_buildings.id, IFNULL(a.cnt, 0) as cnt  from tbl_buildings left join (SELECT IFNULL(count(*),0) as cnt, building_id FROM `tbl_owners` group by building_id) a on a.building_id = tbl_buildings.id where tbl_buildings.id = ".$value['id'];
 				$sub_result = $this->db->query($query)->result_array();
 				$value['cnt'] = $sub_result[0]['cnt'];
 				array_push($data, $value);

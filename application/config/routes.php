@@ -81,6 +81,7 @@ $route['api/apartment/delete']['post'] = 'Apartment/delete';
 $route['api/move/getList']['post'] = 'Movement/getList';
 $route['api/move/add']['post'] = 'Movement/add';
 $route['api/move/outAdd']['post'] = 'Movement/outAdd';
+$route['api/move/maintenanceAdd']['post'] = 'Movement/maintenanceAdd';
 $route['api/move/update']['post'] = 'Movement/update';
 $route['api/move/delete']['post'] = 'Movement/delete';
 
