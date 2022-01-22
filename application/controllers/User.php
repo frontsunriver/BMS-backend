@@ -25,6 +25,7 @@ class User extends My_Controller
     public function search() {
         $request_body = file_get_contents('php://input');
         $param = json_decode($request_body, true);
+        // $param = $_GET;
         $result = array();
         $userList = array();
         $userList = $this->userModel->searchResult($param);

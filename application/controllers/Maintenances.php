@@ -26,7 +26,7 @@ class Maintenances extends My_Controller
         $param = $_POST;
         $arr = array();
         $arr['building_id'] = $_POST['building_id'];
-        $arr['unit_id'] = $_POST['apartment_id'];
+        $arr['unit_id'] = $_POST['unit_id'];
         $arr['carried_date'] = $_POST['carried_date'];
         $arr['user_id'] = $_POST['user_id'];
 

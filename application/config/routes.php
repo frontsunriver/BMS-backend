@@ -108,6 +108,10 @@ $route['api/unit/add']['post'] = 'Unit/add';
 $route['api/unit/update']['post'] = 'Unit/update';
 $route['api/unit/delete']['post'] = 'Unit/delete';
 
+//------------Owner Routes---------------
+$route['api/userowner/add']['post'] = 'Owner/add';
+
+
 //------------Other Routes---------------
 $route['api/import/excel']['post'] = 'Home/importExcel';
 $route['api/import/building_excel']['post'] = 'Home/importBuildingExcel';

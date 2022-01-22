@@ -3,12 +3,12 @@
 /**
 *  Apartment Model
 */
-class Apartment_Model extends CI_Model
+class Owner_model extends CI_Model
 {
 	public $tbl_name;
 	public function __construct() {
         parent::__construct();
-		$this->tbl_name = "tbl_apartments";
+		$this->tbl_name = "tbl_owners";
     }
 
 	public function getList($param){
@@ -23,11 +23,12 @@ class Apartment_Model extends CI_Model
 	}
 
 	public function add($param) {
-		$this->db->insert($this->tbl_name, $param);
-		if($this->db->affected_rows() > 0)
-			return true;
-		else
+		$dbRet = $this->db->insert($this->tbl_name, $param);
+		if (!$dbRet) {
 			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public function update($param)

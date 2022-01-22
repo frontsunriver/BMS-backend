@@ -26,7 +26,7 @@ class Movement extends My_Controller
         $param = $_POST;
         $arr = array();
         $arr['building_id'] = $_POST['building_id'];
-        $arr['apartment_id'] = $_POST['apartment_id'];
+        $arr['unit_id'] = $_POST['unit_id'];
         $arr['tenants_name'] = $_POST['tenants_name'];
         $arr['tenants_email'] = $_POST['tenants_email'];
         $arr['tenants_mobile'] = $_POST['tenants_mobile'];
@@ -115,7 +115,7 @@ class Movement extends My_Controller
         $param = $_POST;
         $arr = array();
         $arr['building_id'] = $_POST['building_id'];
-        $arr['apartment_id'] = $_POST['apartment_id'];
+        $arr['unit_id'] = $_POST['unit_id'];
         $arr['move_type'] = $_POST['move_type'];
         $arr['move_date'] = $_POST['move_date'];
         $arr['user_id'] = $_POST['user_id'];
