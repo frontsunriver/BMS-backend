@@ -12,7 +12,8 @@ class Owner extends My_Controller
     }
 
     public function getList() {
-        $param = $_POST;
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
         $result = array();
         $list = array();
         $list = $this->ownerModel->getList($param);

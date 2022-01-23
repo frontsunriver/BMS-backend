@@ -110,6 +110,7 @@ $route['api/unit/update']['post'] = 'Unit/update';
 $route['api/unit/delete']['post'] = 'Unit/delete';
 
 //------------Owner Routes---------------
+$route['api/userowner/getList']['post'] = 'Owner/getList';
 $route['api/userowner/add']['post'] = 'Owner/add';
 
 
