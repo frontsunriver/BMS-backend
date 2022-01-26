@@ -22,6 +22,17 @@ class Notify extends My_Controller
         $this->returnVal($result);
     }
 
+    public function getDetailList() {
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
+        $result = array();
+        $list = array();
+        $list = $this->notifyModel->getDetailList($param);
+        $result['success'] = true;
+        $result['data'] = $list;
+        $this->returnVal($result);
+    }
+
     public function add() {
         $param = $_POST;
         $arr = array();
@@ -36,6 +47,24 @@ class Notify extends My_Controller
         
 
         if($this->notifyModel->add($arr)) {
+            $result['message'] = "Add successfully.";
+            $result['success'] = true;
+        }else {
+            $result['message'] = "Something error.";
+            $result['success'] = false;
+        }
+        $this->returnVal($result);
+    }
+
+    public function addDetail() {
+        $param = $_POST;
+        $arr = array();
+        $arr['content'] = $_POST['content'];
+        $arr['user_id'] = $_POST['user_id'];
+        $arr['submit_date'] = date('Y-m-d');
+        $arr['notify_id'] = $_POST['notify_id'];
+
+        if($this->notifyModel->addDetail($arr)) {
             $result['message'] = "Add successfully.";
             $result['success'] = true;
         }else {

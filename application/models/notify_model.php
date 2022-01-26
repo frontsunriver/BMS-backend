@@ -12,7 +12,7 @@ class Notify_Model extends CI_Model
     }
 
 	public function getList($param){
-		$this->db->select("tbl_notify.*");
+		$this->db->select("tbl_notify.*, tbl_users.first_name, tbl_users.last_name");
 		$this->db->join('tbl_users', 'tbl_notify.user_id = tbl_users.id');
 		if(isset($param['user_id'])) {
 			$this->db->where('tbl_notify.user_id', $param['user_id']);
@@ -25,8 +25,34 @@ class Notify_Model extends CI_Model
 		}
 	}
 
+	public function getDetailList($param){
+		$this->db->select("tbl_notify_detail.*, tbl_users.first_name, tbl_users.last_name, tbl_notify.content as notify_content");
+		$this->db->join('tbl_users', 'tbl_notify_detail.user_id = tbl_users.id', 'left');
+		$this->db->join('tbl_notify', 'tbl_notify_detail.notify_id = tbl_notify.id', 'left');
+		if(isset($param['user_id'])) {
+			$this->db->where('tbl_notify_detail.user_id', $param['user_id']);
+		}
+		if(isset($param['notify_id'])) {
+			$this->db->where('tbl_notify_detail.notify_id', $param['notify_id']);
+		}
+		$query = $this->db->get('tbl_notify_detail');
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
+
 	public function add($param) {
 		$this->db->insert($this->tbl_name, $param);
+		if($this->db->affected_rows() > 0)
+			return true;
+		else
+			return false;
+	}
+
+	public function addDetail($param) {
+		$this->db->insert('tbl_notify_detail', $param);
 		if($this->db->affected_rows() > 0)
 			return true;
 		else

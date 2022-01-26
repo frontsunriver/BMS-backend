@@ -11,6 +11,7 @@ class Home extends My_Controller
         $this->load->model('user_model','userModel');
         $this->load->model('building_model', 'buildingModel');
         $this->load->model('unit_model', 'unitModel');
+        $this->load->model('owner_model', 'ownerModel');
         $this->load->library('excel');
     }
 
@@ -147,6 +148,93 @@ class Home extends My_Controller
 		}	
 		$this->returnVal($result);
     }
+
+    public function generateExcel() {
+        // create file name
+        $fileName = 'bms-'.time().'.xlsx';  
+        // load excel library
+        $listInfo = $this->ownerModel->getList(array());
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        // set Header
+        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Building Name');
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Unit Name');
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'First Name');
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Last Name');
+        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Email');       
+        $objPHPExcel->getActiveSheet()->SetCellValue('F1', 'Phone');
+        // set Row
+        $rowCount = 2;
+        foreach ($listInfo as $list) {
+            $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $list['building_name']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $list['unit_name']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $list['first_name']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $list['last_name']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $list['email']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $list['mobile']);
+            $rowCount++;
+        }
+        $filename = "bms". date("Y-m-d-H-i-s").".csv";
+        header('Content-Type: application/vnd.ms-excel'); 
+        header('Content-Disposition: attachment;filename="'.$filename.'"');
+        header('Cache-Control: max-age=0'); 
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');  
+        $objWriter->save('uploads/'.$filename);
+        $result['success'] = true;
+        $result['data'] = $filename;
+        $this->returnVal($result);
+    }
+
+    public function generateExcel1() {
+	//load xlsx library
+		$headers = array('Building Name' => 'string', 'Unit Name' => 'string', 'First Name' => 'string', 'Last Name' => 'String', 'Email' => 'string');
+		
+		$listInfo = $this->ownerModel->getList(array());
+		
+		//create writer object
+		$writer = new Excel();
+		
+	        //meta data info
+		$keywords = array('xlsx','MySQL','Codeigniter');
+		$writer->setTitle('Sales Information for Products');
+		$writer->setSubject('Report generated using Codeigniter and XLSXWriter');
+		$writer->setAuthor('https://roytuts.com');
+		$writer->setCompany('https://roytuts.com');
+		$writer->setKeywords($keywords);
+		$writer->setDescription('Sales information for products');
+		$writer->setTempDir(sys_get_temp_dir());
+		
+		//write headers
+		$writer->writeSheetHeader('Sheet1', $headers);
+		
+		//write rows to sheet1
+		foreach ($listInfo as $sf):
+			$writer->writeSheetRow('Sheet1',array($sf['building_name'], $sf['unit_name'], $sf['first_name'], $sf['last_name'], $sf['email']));
+		endforeach;
+		
+		$fileLocation = 'salesinfo.xlsx';
+		
+		//write to xlsx file
+		$writer->writeToFile($fileLocation);
+		//echo $writer->writeToString();
+		
+		//force download
+		header('Content-Description: File Transfer');
+		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		header("Content-Disposition: attachment; filename=".basename($fileLocation));
+		header("Content-Transfer-Encoding: binary");
+		header("Expires: 0");
+		header("Pragma: public");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header('Content-Length: ' . filesize($fileLocation)); //Remove
+
+		ob_clean();
+		flush();
+
+		readfile($fileLocation);
+		unlink($fileLocation);
+		exit(0);
+	}
 
     public function testimport() {
     	echo 1;

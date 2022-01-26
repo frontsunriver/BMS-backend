@@ -93,13 +93,17 @@ $route['api/maintenances/delete']['post'] = 'Maintenances/delete';
 
 //------------Notify Routes---------------
 $route['api/notify/getList']['post'] = 'Notify/getList';
+$route['api/notify/getDetailList']['post'] = 'Notify/getDetailList';
 $route['api/notify/add']['post'] = 'Notify/add';
+$route['api/notify/addDetail']['post'] = 'Notify/addDetail';
 $route['api/notify/update']['post'] = 'Notify/update';
 $route['api/notify/delete']['post'] = 'Notify/delete';
 
 //------------Messages Routes---------------
 $route['api/messages/getList']['post'] = 'Messages/getList';
+$route['api/messages/getDetailList']['post'] = 'Messages/getDetailList';
 $route['api/messages/add']['post'] = 'Messages/add';
+$route['api/messages/addDetail']['post'] = 'Messages/addDetail';
 $route['api/messages/update']['post'] = 'Messages/update';
 $route['api/messages/delete']['post'] = 'Messages/delete';
 
@@ -118,4 +122,5 @@ $route['api/userowner/add']['post'] = 'Owner/add';
 $route['api/import/excel']['post'] = 'Home/importExcel';
 $route['api/import/building_excel']['post'] = 'Home/importBuildingExcel';
 $route['api/import/unit_excel']['post'] = 'Home/importUnitExcel';
+$route['api/generate/excel']['get'] = 'Home/generateExcel';
 

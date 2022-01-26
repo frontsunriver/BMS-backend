@@ -12,11 +12,11 @@ class Messages_Model extends CI_Model
     }
 
 	public function getList($param){
-		$this->db->select("tbl_messages.*, tbl_users.*");
-		$this->db->join('tbl_users', 'tbl_messages.user_id = tbl_users.id');
+		$this->db->select("tbl_messages.*, tbl_users.first_name, tbl_users.last_name, tbl_users.email, tbl_users.mobile");
+		$this->db->join('tbl_users', 'tbl_messages.user_id = tbl_users.id', 'left');
 
-		if(isset($param['notify_id'])) {
-			$this->db->where('tbl_messages.notify_id', $param['notify_id']);
+		if(isset($param['user_id'])) {
+			$this->db->where('tbl_messages.user_id', $param['user_id']);
 		}
 		$query = $this->db->get($this->tbl_name);
 		if ($query->num_rows() > 0) {
@@ -26,8 +26,34 @@ class Messages_Model extends CI_Model
 		}
 	}
 
+	public function getDetailList($param){
+		$this->db->select("tbl_message_detail.*, tbl_users.first_name, tbl_users.last_name, tbl_users.email, tbl_users.mobile");
+		$this->db->join('tbl_users', 'tbl_message_detail.user_id = tbl_users.id', 'left');
+
+		if(isset($param['user_id'])) {
+			$this->db->where('tbl_message_detail.user_id', $param['user_id']);
+		}
+		if(isset($param['message_id'])) {
+			$this->db->where('tbl_message_detail.message_id', $param['message_id']);
+		}
+		$query = $this->db->get('tbl_message_detail');
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
+
 	public function add($param) {
 		$this->db->insert($this->tbl_name, $param);
+		if($this->db->affected_rows() > 0)
+			return true;
+		else
+			return false;
+	}
+
+	public function addDetail($param) {
+		$this->db->insert('tbl_message_detail', $param);
 		if($this->db->affected_rows() > 0)
 			return true;
 		else
