@@ -116,6 +116,8 @@ $route['api/unit/delete']['post'] = 'Unit/delete';
 //------------Owner Routes---------------
 $route['api/userowner/getList']['post'] = 'Owner/getList';
 $route['api/userowner/add']['post'] = 'Owner/add';
+$route['api/userowner/delete']['post'] = 'Owner/delete';
+$route['api/userowner/update']['post'] = 'Owner/update';
 
 
 //------------Other Routes---------------

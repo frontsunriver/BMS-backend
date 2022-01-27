@@ -134,7 +134,7 @@ class User_Model extends CI_Model
 		if ($query->num_rows() > 0) {
 			$result = $query->result_array();
 			foreach ($result as $key => $value) {
-				$this->db->select('tbl_owners.id, tbl_units.unit_name, tbl_buildings.name as building_name, tbl_users.first_name, tbl_users.last_name, tbl_users.email');
+				$this->db->select('tbl_owners.*, tbl_units.unit_name, tbl_buildings.name as building_name, tbl_users.first_name, tbl_users.last_name, tbl_users.email');
 				$this->db->join('tbl_buildings', 'tbl_owners.building_id = tbl_buildings.id', 'left');
 				$this->db->join('tbl_units', 'tbl_owners.unit_id = tbl_units.id', 'left');
 				$this->db->join('tbl_users', 'tbl_owners.user_id = tbl_users.id', 'left');
