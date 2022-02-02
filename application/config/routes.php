@@ -79,10 +79,15 @@ $route['api/apartment/delete']['post'] = 'Apartment/delete';
 
 //------------Noc Move Routes---------------
 $route['api/move/getList']['post'] = 'Movement/getList';
+$route['api/move/getIssuesReply']['post'] = 'Movement/getIssuesReply';
 $route['api/move/add']['post'] = 'Movement/add';
 $route['api/move/outAdd']['post'] = 'Movement/outAdd';
+$route['api/move/updateMoveOut']['post'] = 'Movement/updateMoveOut';
 $route['api/move/maintenanceAdd']['post'] = 'Movement/maintenanceAdd';
+$route['api/move/maintenacneUpdate']['post'] = 'Movement/maintenacneUpdate';
 $route['api/move/update']['post'] = 'Movement/update';
+$route['api/move/updateMoveIn']['post'] = 'Movement/updateMoveIn';
+$route['api/move/reject']['post'] = 'Movement/reject';
 $route['api/move/delete']['post'] = 'Movement/delete';
 
 //------------Maintenances Routes---------------
@@ -125,4 +130,5 @@ $route['api/import/excel']['post'] = 'Home/importExcel';
 $route['api/import/building_excel']['post'] = 'Home/importBuildingExcel';
 $route['api/import/unit_excel']['post'] = 'Home/importUnitExcel';
 $route['api/generate/excel']['get'] = 'Home/generateExcel';
+$route['api/download']['get'] = 'Home/download';
 

@@ -18,6 +18,10 @@ class Unit_Model extends CI_Model
 			$this->db->where('building_id', $param['building_id']);
 		}
 
+		if(isset($param['query'])) {
+			$this->db->like('unit_name', $param['query'], 'both');
+		}
+
 		$query = $this->db->get($this->tbl_name);
 		if ($query->num_rows() > 0) {
 			return $query->result_array();

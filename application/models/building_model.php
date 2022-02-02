@@ -22,7 +22,13 @@ class Building_Model extends CI_Model
 	}
 
 	public function getListWithUnit($param) {
+
 		$this->db->select("*");
+
+		if(isset($param['query'])) {
+			$this->db->like('name', $param['query'], 'both');
+		}
+		
 		$query = $this->db->get($this->tbl_name);
 		$data = array();
 		if ($query->num_rows() > 0) {

@@ -12,7 +12,7 @@ class Owner_model extends CI_Model
     }
 
 	public function getList($param){
-		$this->db->select("tbl_users.first_name, tbl_users.last_name, tbl_users.email, tbl_users.mobile, tbl_buildings.name as building_name, tbl_units.unit_name, tbl_owners.id, tbl_owners.building_id, tbl_owners.unit_id");
+		$this->db->select("tbl_users.first_name, tbl_users.last_name, tbl_users.email, tbl_users.mobile, tbl_buildings.name as building_name, tbl_units.unit_name, tbl_owners.id, tbl_owners.building_id, tbl_owners.unit_id, tbl_units.id as unit_id");
 		$this->db->join("tbl_buildings", "tbl_buildings.id = tbl_owners.building_id", 'left');
 		$this->db->join("tbl_units", "tbl_units.id = tbl_owners.unit_id", 'left');
 		$this->db->join("tbl_users", "tbl_users.id = tbl_owners.user_id", 'left');

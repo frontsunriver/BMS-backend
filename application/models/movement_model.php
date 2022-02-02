@@ -37,6 +37,19 @@ class Movement_Model extends CI_Model
 		}
 	}
 
+	public function getIssuesReply($param){
+		$this->db->select("*");
+		if(isset($param['move_id'])) {
+			$this->db->where('tbl_move_opinions.move_id', $param['move_id']);
+		}
+		$query = $this->db->get('tbl_move_opinions');
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
+
 	public function add($param) {
 		$this->db->insert($this->tbl_name, $param);
 		if($this->db->affected_rows() > 0)
@@ -53,6 +66,26 @@ class Movement_Model extends CI_Model
 		if($this->db->affected_rows() > 0)
 			return true;
 		else
+			return false;
+	}
+
+	public function reject($param)
+	{
+		$array['id'] = $param['id'];
+		$array['status'] = $param['status'];
+		$this->db->set($array);
+		$this->db->where('id', $array['id']);
+		$this->db->update($this->tbl_name);
+		if($this->db->affected_rows() > 0){
+			$arr['move_id'] = $param['id'];
+			$arr['content'] = $param['reply'];
+			$arr['reg_date'] = date('Y-m-d');
+			$this->db->insert('tbl_move_opinions', $arr);
+			if($this->db->affected_rows() > 0)
+				return true;
+			else
+				return false;
+		} else
 			return false;
 	}
 

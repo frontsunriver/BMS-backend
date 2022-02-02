@@ -13,6 +13,7 @@ class Home extends My_Controller
         $this->load->model('unit_model', 'unitModel');
         $this->load->model('owner_model', 'ownerModel');
         $this->load->library('excel');
+        $this->load->helper('download');
     }
 
     public function index() {
@@ -234,6 +235,11 @@ class Home extends My_Controller
 		readfile($fileLocation);
 		unlink($fileLocation);
 		exit(0);
+	}
+
+	public function download() {
+		echo $_GET['url'];
+        force_download(FCPATH."/".$_GET['url'], NULL);
 	}
 
     public function testimport() {

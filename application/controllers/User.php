@@ -112,7 +112,8 @@ class User extends My_Controller
     }
 
     public function delete() {
-        $param = $_POST;
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
         if($this->userModel->delete($param)) {
             $result['message'] = "Delete successfully.";
             $result['success'] = true;

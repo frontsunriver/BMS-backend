@@ -22,6 +22,12 @@ class User_Model extends CI_Model
 		// if(isset($param['type'])) {
 		// 	$this->db->where('type', $param['type']);		
 		// }
+		if(isset($param['query'])) {
+			$this->db->like('first_name', $param['query'], 'both');
+			$this->db->or_like('last_name', $param['query'], 'both');
+			$this->db->or_like('email', $param['query'], 'both');
+			$this->db->or_like('mobile', $param['query'], 'both');
+		}
 		$query = $this->db->get($this->tbl_name);
 		$data = array();
 		if ($query->num_rows() > 0) {
@@ -89,10 +95,9 @@ class User_Model extends CI_Model
 	{
 		$this->db->where('id', $param['id']);
 		$this->db->delete($this->tbl_name);
-		if($this->db->affected_rows() > 0)
-			return true;
-		else
-			return false;
+		$this->db->where('user_id', $param['id']);
+		$this->db->delete('tbl_owners');
+		return true;
 	}
 
 	public function deleteByEmail($param)
