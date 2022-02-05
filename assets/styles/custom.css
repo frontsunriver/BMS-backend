@@ -1,0 +1,44 @@
+body{
+	background-color: #50647B !important;
+}
+.wrapper {
+	background-color: #50647B;
+}
+.app {
+	background-color: #50647B !important;
+}
+.sidebar-panel {
+	background-color: #50647B !important;
+	box-shadow: none !important;
+	margin-top: 20px;
+}
+.main-panel {
+	background-color: #ECF1F5 !important;
+	border-top-left-radius: 40px;
+}
+.navbar {
+	padding: 0.9rem 2rem !important;
+	color:  white;
+	font-size: 24px;
+}
+.nav-title{
+	text-align: center !important;
+    color: white !important;
+    font-size: 15px !important;
+}
+.sidebar-panel .menu_item {
+	padding: 0px; 
+	display: flex; 
+	justify-content: center;
+	color: #fff;
+}
+.menu_item i {
+	font-size: 50px;
+	width: 50px;
+	color: #fff;
+}
+.nav-title i {
+	font-size: 50px;
+	width: 50px;
+	color: #fff;
+}

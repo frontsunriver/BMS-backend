@@ -28,6 +28,7 @@ class User_Model extends CI_Model
 			$this->db->or_like('email', $param['query'], 'both');
 			$this->db->or_like('mobile', $param['query'], 'both');
 		}
+		$this->db->where('type =',2);
 		$query = $this->db->get($this->tbl_name);
 		$data = array();
 		if ($query->num_rows() > 0) {

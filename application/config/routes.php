@@ -49,9 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'home';
-$route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+
 
 // Custom Routes
 //------------User Routes---------------
@@ -132,3 +130,6 @@ $route['api/import/unit_excel']['post'] = 'Home/importUnitExcel';
 $route['api/generate/excel']['get'] = 'Home/generateExcel';
 $route['api/download']['get'] = 'Home/download';
 
+$route['default_controller'] = 'admin/dashboard';
+$route['404_override'] = '';
+$route['translate_uri_dashes'] = FALSE;

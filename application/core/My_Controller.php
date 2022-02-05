@@ -18,10 +18,10 @@ class My_Controller extends CI_Controller {
 			return redirect('Login');
     }
 
-    public function render($main, $data=array(), $sub_header="common/sub_header", $header = "common/header",  $footer = "common/footer"){
+    public function render($main, $data=array(), $menu="common/menu", $header = "common/header",  $footer = "common/footer"){
         $data['main'] = $main;
         $data['header'] = $header;
-        $data['sub_header'] = $sub_header;
+        $data['menu'] = $menu;
         $data['footer'] = $footer;
         if($this->session->userdata('userinfo')){
             $data['isLogin'] = true;
