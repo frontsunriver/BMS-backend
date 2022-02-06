@@ -22,16 +22,34 @@ body{
 	font-size: 24px;
 }
 .nav-title{
+	display: flex !important;
+    justify-content: center;
+    align-items: center;
 	text-align: center !important;
     color: white !important;
     font-size: 15px !important;
+    padding: 15px 0px !important;
+    border-radius: 5px;
+	cursor: pointer;
 }
+
+.nav-title:hover {
+	background: #748191 !important;
+}
+
 .sidebar-panel .menu_item {
 	padding: 0px; 
 	display: flex; 
 	justify-content: center;
 	color: #fff;
 }
+
+.sidebar-panel .menu_item:hover, .sidebar-panel .menu_item:active {
+	color: #fff !important;
+	background-color: #748191;
+	border-radius: 5px;
+}
+
 .menu_item i {
 	font-size: 50px;
 	width: 50px;
@@ -41,4 +59,16 @@ body{
 	font-size: 50px;
 	width: 50px;
 	color: #fff;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header-user-drop {
+	margin-right: 70px;
+    background: #50647b;
+    color: #fff;
 }
