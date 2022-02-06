@@ -5,8 +5,6 @@
     <div style="padding: 0px 30px;">
     <a href="<?php echo BASE_URL?>/admin/dashboard"><p class="nav-title <?php echo $menu_item == 'dashboard' ? 'active' : ''; ?>"><i class="fas fa-home" style="font-size: 45px; margin-right: 10px"></i><span>Dashboard</span></p></a>
     </div>
-    
-    
     <div class="col-md-6" style="margin-top:50px">
       <ul class="nav">
         <li>
