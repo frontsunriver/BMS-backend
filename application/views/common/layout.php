@@ -18,6 +18,7 @@
     
     <title><?php echo $page_title?></title>
 
+    
     <!-- page stylesheets -->
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>vendor/bower-jvectormap/jquery-jvectormap-1.2.2.css"/>
     <!-- end page stylesheets -->
@@ -30,6 +31,8 @@
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>styles/app.css" id="load_styles_before"/>
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>styles/app.skins.css"/>
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>styles/custom.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+    
     <!-- endbuild -->
   </head>
   <body>
@@ -70,6 +73,7 @@
     <script src="<?php echo ASSET_URL;?>scripts/constants.js"></script>
     <script src="<?php echo ASSET_URL;?>scripts/main.js"></script>
     <script src="<?php echo ASSET_URL;?>scripts/jquery.form.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <!-- endbuild -->
 
     <!-- page scripts -->

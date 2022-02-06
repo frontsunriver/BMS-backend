@@ -8,5 +8,13 @@
       </a>
     </div>
   </nav>
+  <div class="dropdown">
+    <button type="button" class="btn dropdown-toggle header-user-drop" data-toggle="dropdown">
+      Hi John
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Sign out</a>
+    </div>
+  </div>
   <!-- /top header -->
 </div>
