@@ -8,10 +8,10 @@
       <ul class="nav">
         <!-- dashboard -->
         <li>
-          <a href="index.html" class="menu_item">
+          <a href="<?php echo SITE_URL?>/admin/pending" class="menu_item">
             <div style="text-align: center">
               <i class="material-icons">home</i>
-              <p>Home</p>
+              <p>Pending Requests</p>
             </div>
             
           </a>
@@ -20,7 +20,7 @@
           <a href="index.html" class="menu_item">
             <div style="text-align: center">
               <i class="material-icons">event</i>
-              <p>Home</p>
+              <p>Archieved Requests</p>
             </div>
             
           </a>
