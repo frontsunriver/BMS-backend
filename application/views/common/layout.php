@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>styles/app.skins.css"/>
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>styles/custom.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css"/>
     
     <!-- endbuild -->
   </head>
@@ -74,21 +75,30 @@
     <script src="<?php echo ASSET_URL;?>scripts/main.js"></script>
     <script src="<?php echo ASSET_URL;?>scripts/jquery.form.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <!-- endbuild -->
 
     <!-- page scripts -->
-    <?php foreach($add_plugins as $plugin) {?>
-      <script src="<?php echo ASSET_URL.$plugin?>"></script>
-    <?php }?>
+    
+    <?php 
+    if(isset($add_plugins)) {
+      foreach($add_plugins as $plugin) {?>
+        <script src="<?php echo ASSET_URL.$plugin?>"></script>
+      <?php }
+    }
+    ?>
     <!-- end page scripts -->
 
     <!-- initialize page scripts -->
-    <?php foreach($add_scripts as $script) {?>
+    <?php 
+    if(isset($add_scripts)) {
+      foreach($add_scripts as $script) {?>
       <script src="<?php echo ASSET_URL.$script?>"></script>
-    <?php }?>
+    <?php }
+    } ?>
     <!-- end initialize page scripts -->
     <script type="text/javascript">
-      var base_url = "<?php echo base_url()?>";
+      var base_url = "<?php echo BASE_URL?>";
       var site_url = "<?php echo site_url()?>";
     </script>
   </body>

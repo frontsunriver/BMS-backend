@@ -28,6 +28,9 @@ class Movement_Model extends CI_Model
 		if(isset($param['notStatus'])) {
 			$this->db->where('tbl_noc_move.status !=', $param['notStatus']);
 		}
+		if(isset($param['id'])) {
+			$this->db->where('tbl_noc_move.id', $param['id']);
+		}
 		
 		$query = $this->db->get($this->tbl_name);
 		if ($query->num_rows() > 0) {

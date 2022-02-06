@@ -12,11 +12,11 @@ class Dashboard extends My_Controller
     }
 
     public function index() {
-        $data['page_title'] = 'dashboard';
+        $data['page_title'] = 'SMARTOA | DASHBOARD';
         $data['add_plugins'] = array('vendor/noty/js/noty/packaged/jquery.noty.packaged.min.js',
                                     'scripts/helpers/noty-defaults.js');
         $data['add_scripts'] = array('scripts/pages/dashboard.js');
-
+        $data['menu_item'] = 'dashboard';
         $this->render('dashboard', $data);
     }
 }

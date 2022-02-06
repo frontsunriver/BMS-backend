@@ -37,6 +37,10 @@ body{
 	background: #748191 !important;
 }
 
+.nav-title.active {
+	background: #748191 !important;
+}
+
 .sidebar-panel .menu_item {
 	padding: 0px; 
 	display: flex; 
@@ -44,7 +48,7 @@ body{
 	color: #fff;
 }
 
-.sidebar-panel .menu_item:hover, .sidebar-panel .menu_item:active {
+.sidebar-panel .menu_item:hover, .sidebar-panel .menu_item.active {
 	color: #fff !important;
 	background-color: #748191;
 	border-radius: 5px;
@@ -71,4 +75,8 @@ body{
 	margin-right: 70px;
     background: #50647b;
     color: #fff;
+}
+
+.content-view {
+	min-height: calc(100vh - 120px) !important;
 }
