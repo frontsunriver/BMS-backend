@@ -80,3 +80,29 @@ body{
 .content-view {
 	min-height: calc(100vh - 120px) !important;
 }
+
+.message-send-icon {
+    padding: 6px;
+    width: 34px;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat {
+	width: 60%;
+    background: #e2e2e2;
+    padding: 15px 15px 15px 15px;
+    border-radius: 10px;
+}
+.other-message {
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 10px;
+}
+
+.my-message {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 10px;
+}

@@ -76,6 +76,8 @@
     <script src="<?php echo ASSET_URL;?>scripts/jquery.form.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    
     <!-- endbuild -->
 
     <!-- page scripts -->
