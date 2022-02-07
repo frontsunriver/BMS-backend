@@ -68,7 +68,7 @@
                 <button class="btn btn-primary btn-block btn-lg signup" type="submit">
                   Create your account
                 </button>
-                <div class="divider">
+                <!-- <div class="divider">
                   <span>
                     OR
                   </span>
@@ -93,7 +93,7 @@
                     <i class="fa fa-linkedin">
                     </i>
                   </button>
-                </div>
+                </div> -->
               </form>
             </div>
           </div>

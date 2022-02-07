@@ -9,14 +9,15 @@ class User extends My_Controller
     public function __construct() {
         parent::__construct();
         $this->load->model('User_model','userModel');
+        
+    }
+
+    public function signin() {
         $userdata = $this->session->userdata(USER_INFO);
         if(isset($userdata)){
             $data['isLogin'] = false;
             redirect('/admin/dashboard', 'refresh');
         }
-    }
-
-    public function signin() {
         $data['page_title'] = 'SIGNIN';
         $data['add_scripts'] = array('scripts/pages/signin.js');
 
@@ -50,6 +51,11 @@ class User extends My_Controller
     }
 
     public function signup() {
+        $userdata = $this->session->userdata(USER_INFO);
+        if(isset($userdata)){
+            $data['isLogin'] = false;
+            redirect('/admin/dashboard', 'refresh');
+        }
         $data['page_title'] = 'SIGNUP';
         $data['add_scripts'] = array('scripts/pages/signup.js');
         $this->load->view('user/signup' ,$data);
@@ -77,8 +83,9 @@ class User extends My_Controller
     }
 
     public function sign_out() {
-        $this->session->sess_destroy();
-        redirect('admin/user/signin');
+        $this->session->unset_userdata(USER_INFO);
+        session_destroy();
+        redirect('/admin/user/signin', 'refresh');
     }
 
 }   

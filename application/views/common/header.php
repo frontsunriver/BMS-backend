@@ -2,8 +2,7 @@
   <!-- top header -->
   <nav class="header navbar">
     <div class="header-inner">
-      <a class="navbar-item navbar-spacer-right navbar-heading hidden-md-down" href="#">
-        <i class="fa fa-calendar"></i>
+      <a class="navbar-item navbar-spacer-right navbar-heading hidden-md-down app-logo" href="#">
         <span>Smartoa</span>
       </a>
     </div>

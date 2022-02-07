@@ -127,3 +127,7 @@ body{
 .pagination li:hover {
 	background-color: #fff;
 }
+
+.app-logo:hover {
+	color: #fff !important;
+}
