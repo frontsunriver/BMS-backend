@@ -99,10 +99,17 @@ body{
 	display: flex;
 	justify-content: flex-start;
 	margin-top: 10px;
+	
 }
-
+.other-message .chat{
+	background-color: #EEE5FF !important;
+}
+.my-message .chat {
+	background-color: #C9F7F5 !important;
+}
 .my-message {
 	display: flex;
 	justify-content: flex-end;
 	margin-top: 10px;
+	
 }

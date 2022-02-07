@@ -8,6 +8,7 @@ function onChanelSelect(id) {
 		},
 		success: function(res) {
 			res = JSON.parse(res);
+			console.log(res);
 			if(res.length > 0) {
 				var content = $(".message-content");
 				var html = "";

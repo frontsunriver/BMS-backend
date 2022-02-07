@@ -36,7 +36,7 @@ $(document).ready(function() {
 	        data: null,
 	        render: function(data, type, row) {
 	        	return `<a href="${base_url}/admin/issue/repairDetail?id=${row.id}"><i class="fas fa-edit"></i></a>
-	        			<a href="${base_url}/admin/issue/pendingDetail?id=${row.id}"><i class="fas fa-eye"></i></a>`;
+	        			<a target="_blank" href="${base_url}/${row.photofile}"><i class="fas fa-eye"></i></a>`;
 	        }
 	    }],
 	});

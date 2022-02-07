@@ -12,7 +12,7 @@ class Message extends My_Controller
     }
 
     public function index() {
-        $data['page_title'] = 'SMARTOA | MESSAGE';
+        $data['page_title'] = 'MESSAGE';
         $data['add_scripts'] = array('scripts/pages/message.js');
         $data['menu_item'] = 'message';
         $data['message_chanel'] = '';
