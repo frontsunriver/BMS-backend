@@ -1,12 +1,17 @@
 <div class="content-view">
   <div class="layout-xs contacts-container">
     <div class="flexbox-xs layout-column-xs contact-view">
-      <div class="col" style="width:150px;">
-        <a href="<?php echo BASE_URL?>/admin/issue/repairRequest"><i class="fas fa-arrow-left" style="font-size: 30px;"></i></a>
+      <div class="col">
+        <a href="<?php echo BASE_URL?>/admin/issue/repairRequest" style="float: left;"><i class="fas fa-arrow-left" style="font-size: 30px;"></i></a>
+          <?php if(count($list) > 0) {?>
+          <div class="card card-block" style="margin-left:50px">
+            <span><?php echo $list[0]['content'] ?><br>
+          </div>
+          <?php }?>
       </div>
+
       <div class="flex-xs scroll-y p-a-3 message-content">
         <?php if(count($list) > 0) {?>
-          <p><?php echo $list[0]['notify_content'] ?></p>
           <?php foreach ($list as $item) {
             if ($item['user_id'] == $userid) {?>
               <div class="my-message">
