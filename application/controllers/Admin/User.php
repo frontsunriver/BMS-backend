@@ -9,6 +9,11 @@ class User extends My_Controller
     public function __construct() {
         parent::__construct();
         $this->load->model('User_model','userModel');
+        $userdata = $this->session->userdata(USER_INFO);
+        if(isset($userdata)){
+            $data['isLogin'] = false;
+            redirect('/admin/dashboard', 'refresh');
+        }
     }
 
     public function signin() {

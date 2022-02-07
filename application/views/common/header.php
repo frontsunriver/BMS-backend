@@ -10,7 +10,7 @@
   </nav>
   <div class="dropdown">
     <button type="button" class="btn dropdown-toggle header-user-drop" data-toggle="dropdown">
-      Hi John
+      Hi <?php echo $user_info['first_name']?>
     </button>
     <div class="dropdown-menu">
       <a class="dropdown-item" href="<?php echo BASE_URL?>/admin/user/sign_out">Sign out</a>

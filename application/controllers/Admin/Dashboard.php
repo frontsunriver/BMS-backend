@@ -8,11 +8,10 @@ class Dashboard extends My_Controller
 {
     public function __construct() {
         parent::__construct();
-
-        $userdata = $this->session->userdata(USER_INFO);
-        if(!isset($userdata)){
-            redirect('/admin/user/signin');
-        }
+        // $userdata = $this->session->userdata(USER_INFO);
+        // if(!isset($userdata)){
+        //     redirect('/admin/user/signin');
+        // }
         //$this->load->model('user_model','userModel');
     }
 

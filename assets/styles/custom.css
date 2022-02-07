@@ -111,5 +111,19 @@ body{
 	display: flex;
 	justify-content: flex-end;
 	margin-top: 10px;
-	
+}
+/*.pagination li {
+	padding: 3px;
+	background-color: #fff;
+	border: 0px;
+	cursor: pointer;
+}*/
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px !important;
+	border: 0px !important;
+}
+
+.pagination li:hover {
+	background-color: #fff;
 }

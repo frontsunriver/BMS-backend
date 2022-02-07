@@ -4,7 +4,8 @@ class My_Controller extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-		$this->form_validation->set_error_delimiters('<strong><div class="text-danger">', '</div></strong>');
+        $this->load->helper('url');
+		    $this->form_validation->set_error_delimiters('<strong><div class="text-danger">', '</div></strong>');
         date_default_timezone_set('Asia/Kolkata');
     }
 
@@ -22,16 +23,22 @@ class My_Controller extends CI_Controller {
         $data['header'] = $header;
         $data['menu'] = $menu;
         $data['footer'] = $footer;
-        if($this->session->userdata('userinfo')){
-            $data['isLogin'] = true;
-            $data['username'] = $this->session->userdata('userinfo')['name'];
+        if($this->session->userdata(USER_INFO)){
+            
         }else{
             $data['isLogin'] = false;
         }
-        
+
+        $userdata = $this->session->userdata(USER_INFO);
+        if(!isset($userdata)){
+            $data['isLogin'] = false;
+            redirect('/admin/user/signin', 'refresh');
+        }else {
+          $data['isLogin'] = true;
+          $data['user_info'] = $this->session->userdata(USER_INFO);
+        }
         
         $this->load->view("common/layout", $data);
-
     }
 
     public function bet_render($main, $data=array(), $sub_header = "bet_common/sub_header", $header = "bet_common/header",  $footer = "bet_common/footer"){

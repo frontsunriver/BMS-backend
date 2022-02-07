@@ -52,7 +52,7 @@
           </a>
         </li>
         <li>
-          <a href="<?php echo BASE_URL?>/admin/message" class="menu_item" style="padding: 0px; margin-top: 50px;">
+          <a href="<?php echo BASE_URL?>/admin/message" class="menu_item <?php echo $menu_item == 'message' ? 'active' : ''; ?>" style="padding: 0px; margin-top: 50px;">
             <div style="text-align: center; padding-top: 10px;">
               <i class="fas fa-envelope" style="font-size: 45px;"></i>
               <p>Messages</p>
