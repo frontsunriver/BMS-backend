@@ -18,6 +18,12 @@ class Messages_Model extends CI_Model
 		if(isset($param['user_id'])) {
 			$this->db->where('tbl_messages.user_id', $param['user_id']);
 		}
+		if(isset($param['query'])) {
+			$this->db->like('tbl_users.first_name', $param['query'], 'both');
+			$this->db->or_like('tbl_users.last_name', $param['query'], 'both');
+			$this->db->or_like('tbl_messages.title', $param['query'], 'both');
+			$this->db->or_like('tbl_messages.messages', $param['query'], 'both');
+		}
 		$query = $this->db->get($this->tbl_name);
 		if ($query->num_rows() > 0) {
 			return $query->result_array();
