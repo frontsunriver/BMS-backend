@@ -24,7 +24,7 @@
           </a>
         </li>
         <li>
-          <a href="index.html" class="menu_item" style="padding: 0px; margin-top: 50px;">
+          <a href="<?php echo BASE_URL?>/admin/issue/repairRequest" class="menu_item <?php echo $menu_item == 'issue' ? 'active' : ''; ?>" style="padding: 0px; margin-top: 50px;">
             <div style="text-align: center; padding-top: 10px;">
               <i class="fas fa-file-import" style="font-size: 45px;"></i>
               <p>Repair Request</p>

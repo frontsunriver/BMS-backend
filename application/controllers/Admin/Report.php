@@ -14,7 +14,7 @@ class Report extends My_Controller
     }
 
     public function index() {
-        $data['page_title'] = 'SMARTOA | REPORT';
+        $data['page_title'] = 'REPORT';
         $data['menu_item'] = 'report';
         $this->render('report/report', $data);
     }

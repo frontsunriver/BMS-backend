@@ -18,7 +18,7 @@ class User extends My_Controller
     }
 
     public function signin() {
-        $data['page_title'] = 'signin';
+        $data['page_title'] = 'SIGNIN';
         $data['add_scripts'] = array('scripts/pages/signin.js');
 
         $this->load->view('user/signin', $data);
@@ -51,7 +51,7 @@ class User extends My_Controller
     }
 
     public function signup() {
-        $data['page_title'] = 'signup';
+        $data['page_title'] = 'SIGNUP';
         $data['add_scripts'] = array('scripts/pages/signup.js');
         $this->load->view('user/signup' ,$data);
     }

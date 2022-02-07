@@ -12,7 +12,7 @@ class Request extends My_Controller
     }
 
     public function pendingRequest() {
-        $data['page_title'] = "SMARTOA | PENDING REQUEST";
+        $data['page_title'] = "PENDING REQUEST";
         $data['add_scripts'] = array('scripts/pages/pending.js');
         $data['menu_item'] = 'pending';
         $this->render('pending/pending_request', $data);
@@ -28,7 +28,7 @@ class Request extends My_Controller
 
     public function pendingDetail() {
     	$param = array('id' => $_GET['id']);
-    	$data['page_title'] = "SMARTOA | PENDING DETAIL";
+    	$data['page_title'] = "PENDING DETAIL";
 		$data['menu_item'] = 'pending';
     	$data['add_scripts'] = array('scripts/pages/pending_detail.js');
 		$data['list'] = $this->movementModel->getList($param);
@@ -48,7 +48,7 @@ class Request extends My_Controller
     }
 
     public function archivedRequest() {
-    	$data['page_title'] = "SMARTOA | ARCHIVED REQUEST";
+    	$data['page_title'] = "ARCHIVED REQUEST";
         $data['add_scripts'] = array('scripts/pages/archived.js');
 		$data['menu_item'] = 'archived';
         $this->render('archived/archived_request', $data);
@@ -64,7 +64,7 @@ class Request extends My_Controller
 
    public function archivedDetail() {
     	$param = array('id' => $_GET['id']);
-    	$data['page_title'] = "SMARTOA | ARCHIVED DETAIL";
+    	$data['page_title'] = "ARCHIVED DETAIL";
     	$data['menu_item'] = 'archived';
 		$data['list'] = $this->movementModel->getList($param);
         $this->render('archived/archived_detail', $data);

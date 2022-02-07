@@ -16,7 +16,7 @@
 
     <meta name="theme-color" content="#4C7FF0">
     
-    <title><?php echo $page_title?></title>
+    <title><?php echo 'SMARTOA | '.$page_title?></title>
 
     
     <!-- page stylesheets -->
@@ -99,7 +99,7 @@
     <!-- end initialize page scripts -->
     <script type="text/javascript">
       var base_url = "<?php echo BASE_URL?>";
-      var site_url = "<?php echo site_url()?>";
+      var site_url = "<?php echo SITE_URL?>";
     </script>
   </body>
 </html>
