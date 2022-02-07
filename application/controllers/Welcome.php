@@ -10,6 +10,6 @@ class Welcome extends CI_Controller
     }
 
     public function index() {
-        redirect('/admin/dashboard');
+        redirect('/admin/dashboard', 'refresh');
     }
 }

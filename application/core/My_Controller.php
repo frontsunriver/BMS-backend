@@ -23,11 +23,6 @@ class My_Controller extends CI_Controller {
         $data['header'] = $header;
         $data['menu'] = $menu;
         $data['footer'] = $footer;
-        if($this->session->userdata(USER_INFO)){
-            
-        }else{
-            $data['isLogin'] = false;
-        }
 
         $userdata = $this->session->userdata(USER_INFO);
         if(!isset($userdata)){

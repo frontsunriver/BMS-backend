@@ -130,6 +130,6 @@ $route['api/import/unit_excel']['post'] = 'Home/importUnitExcel';
 $route['api/generate/excel']['get'] = 'Home/generateExcel';
 $route['api/download']['get'] = 'Home/download';
 
-$route['default_controller'] = 'Welcome';
+$route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
