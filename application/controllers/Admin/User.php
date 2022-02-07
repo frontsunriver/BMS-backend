@@ -9,12 +9,6 @@ class User extends My_Controller
     public function __construct() {
         parent::__construct();
         $this->load->model('User_model','userModel');
-
-        $userdata = $this->session->userdata();
-        if(!isset($userdata)){
-            redirct('/admin/dashboard');
-        }
-
     }
 
     public function signin() {
@@ -77,4 +71,9 @@ class User extends My_Controller
         $this->returnVal($result);        
     }
 
-}
+    public function sign_out() {
+        $this->session->sess_destroy();
+        redirect('admin/user/signin');
+    }
+
+}   

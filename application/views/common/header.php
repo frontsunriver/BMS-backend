@@ -13,7 +13,7 @@
       Hi John
     </button>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Sign out</a>
+      <a class="dropdown-item" href="<?php echo BASE_URL?>/admin/user/sign_out">Sign out</a>
     </div>
   </div>
   <!-- /top header -->
