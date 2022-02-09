@@ -28,6 +28,10 @@ class Building_Model extends CI_Model
 		if(isset($param['query'])) {
 			$this->db->like('name', $param['query'], 'both');
 		}
+
+		if(isset($param['start'])) {
+			$this->db->limit($param['limit'], $param['start']);
+		}
 		
 		$query = $this->db->get($this->tbl_name);
 		$data = array();
@@ -40,6 +44,22 @@ class Building_Model extends CI_Model
 				array_push($data, $value);
 			}
 			return $data;
+		}else {
+			return array();
+		}
+	}
+
+	public function getListWithUnitCount($param) {
+		$this->db->select("count(*) as cnt");
+
+		if(isset($param['query'])) {
+			$this->db->like('name', $param['query'], 'both');
+		}
+
+		$query = $this->db->get($this->tbl_name);
+		$data = array();
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
 		}else {
 			return array();
 		}

@@ -19,16 +19,21 @@ class User_Model extends CI_Model
 		if(isset($param['building_id'])) {
 			$this->db->where('building_id', $param['building_id']);		
 		}
-		// if(isset($param['type'])) {
-		// 	$this->db->where('type', $param['type']);		
-		// }
+		if(isset($param['type'])) {
+			$this->db->where('type', $param['type']);		
+		}
 		if(isset($param['query'])) {
+			$this->db->group_start();
 			$this->db->like('first_name', $param['query'], 'both');
 			$this->db->or_like('last_name', $param['query'], 'both');
 			$this->db->or_like('email', $param['query'], 'both');
 			$this->db->or_like('mobile', $param['query'], 'both');
+			$this->db->group_end();
 		}
-		$this->db->where('type =',2);
+		if(isset($param['start'])) {
+			$this->db->limit($param['limit'], $param['start']);
+		}
+
 		$query = $this->db->get($this->tbl_name);
 		$data = array();
 		if ($query->num_rows() > 0) {
@@ -50,6 +55,34 @@ class User_Model extends CI_Model
 		}
 	}
 
+	public function getUserListCount($param){
+		$this->db->select("count(*) as cnt");
+		if(isset($param['email'])) {
+			$this->db->where('email', $param['email']);	
+		}
+		if(isset($param['building_id'])) {
+			$this->db->where('building_id', $param['building_id']);		
+		}
+		if(isset($param['type'])) {
+			$this->db->where('type', $param['type']);		
+		}
+		if(isset($param['query'])) {
+			$this->db->group_start();
+			$this->db->like('first_name', $param['query'], 'both');
+			$this->db->or_like('last_name', $param['query'], 'both');
+			$this->db->or_like('email', $param['query'], 'both');
+			$this->db->or_like('mobile', $param['query'], 'both');
+			$this->db->group_end();
+		}
+		$query = $this->db->get($this->tbl_name);
+		$data = array();
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
+
 	public function login($param) {
 		return $this->getUserList($param);
 	}
@@ -59,10 +92,7 @@ class User_Model extends CI_Model
 		$this->db->set($param);
 		$this->db->where('id', $param['id']);
 		$this->db->update($this->tbl_name);
-		if($this->db->affected_rows() > 0)
-			return true;
-		else
-			return false;
+		return true;
 	}
 
 	public function updateByEmail($param)

@@ -131,3 +131,8 @@ body{
 .app-logo:hover {
 	color: #fff !important;
 }
+
+.setting_sub_menu.active {
+	background-color: #50647b; 
+	color: #fff;
+}

@@ -60,7 +60,7 @@
           </a>
         </li>
         <li>
-          <a href="index.html" class="menu_item" style="padding: 0px; margin-top: 50px;">
+          <a href="<?php echo BASE_URL?>/admin/setting" class="menu_item <?php echo $menu_item == 'setting' ? 'active' : ''; ?>" style="padding: 0px; margin-top: 50px;">
             <div style="text-align: center; padding-top: 10px;">
               <i class="fa fa-cogs" style="font-size: 45px;"></i>
               <p>Settings</p>

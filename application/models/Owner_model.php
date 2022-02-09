@@ -12,7 +12,7 @@ class Owner_model extends CI_Model
     }
 
 	public function getList($param){
-		$this->db->select("tbl_users.first_name, tbl_users.last_name, tbl_users.email, tbl_users.mobile, tbl_buildings.name as building_name, tbl_units.unit_name, tbl_owners.id, tbl_owners.building_id, tbl_owners.unit_id, tbl_units.id as unit_id");
+		$this->db->select("tbl_users.first_name, tbl_users.last_name, tbl_users.email, tbl_users.mobile, tbl_buildings.name as building_name, tbl_units.unit_name, tbl_owners.id, tbl_owners.building_id, tbl_owners.unit_id, tbl_units.id as unit_id, tbl_owners.user_id");
 		$this->db->join("tbl_buildings", "tbl_buildings.id = tbl_owners.building_id", 'left');
 		$this->db->join("tbl_units", "tbl_units.id = tbl_owners.unit_id", 'left');
 		$this->db->join("tbl_users", "tbl_users.id = tbl_owners.user_id", 'left');
@@ -23,6 +23,42 @@ class Owner_model extends CI_Model
 
 		if(isset($param['user_id'])) {
 			$this->db->where('tbl_owners.user_id', $param['user_id']);
+		}
+
+		if(isset($param['start'])) {
+			$this->db->limit($param['limit'], $param['start']);
+		}
+
+		if(isset($param['query'])) {
+			$this->db->like('tbl_buildings.name', $param['query'], 'both');
+			$this->db->or_like('tbl_units.unit_name', $param['query'], 'both');
+		}
+
+		$query = $this->db->get($this->tbl_name);
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
+
+	public function getListCount($param){
+		$this->db->select("count(*) as cnt");
+		$this->db->join("tbl_buildings", "tbl_buildings.id = tbl_owners.building_id", 'left');
+		$this->db->join("tbl_units", "tbl_units.id = tbl_owners.unit_id", 'left');
+		$this->db->join("tbl_users", "tbl_users.id = tbl_owners.user_id", 'left');
+
+		if(isset($param['building_id'])) {
+			$this->db->where('tbl_owners.building_id', $param['building_id']);
+		}
+
+		if(isset($param['user_id'])) {
+			$this->db->where('tbl_owners.user_id', $param['user_id']);
+		}
+
+		if(isset($param['query'])) {
+			$this->db->like('tbl_buildings.name', $param['query'], 'both');
+			$this->db->or_like('tbl_units.unit_name', $param['query'], 'both');
 		}
 
 		$query = $this->db->get($this->tbl_name);

@@ -22,6 +22,29 @@ class Unit_Model extends CI_Model
 			$this->db->like('unit_name', $param['query'], 'both');
 		}
 
+		if(isset($param['start'])) {
+			$this->db->limit($param['limit'], $param['start']);
+		}
+
+		$query = $this->db->get($this->tbl_name);
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
+
+	public function getListCount($param){
+		$this->db->select("count(*) as cnt");
+		
+		if(isset($param['building_id'])) {
+			$this->db->where('building_id', $param['building_id']);
+		}
+
+		if(isset($param['query'])) {
+			$this->db->like('unit_name', $param['query'], 'both');
+		}
+
 		$query = $this->db->get($this->tbl_name);
 		if ($query->num_rows() > 0) {
 			return $query->result_array();
