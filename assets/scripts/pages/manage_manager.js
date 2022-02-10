@@ -86,7 +86,7 @@ Ext.onReady(function () {
 		        totalProperty: 'total'
 		     }
 		 },
-		 autoLoad: true	
+		 autoLoad: false	
 	});
 
 	var unitComboStore = Ext.create('Ext.data.Store', {
@@ -147,7 +147,7 @@ Ext.onReady(function () {
 			  	var form = Ext.getCmp('buildingForm').getForm();
 			  	form.reset();
 			  	Ext.getCmp('email').setDisabled(false);
-			  	Ext.getCmp('building_window').setTitle('Add Building');
+			  	Ext.getCmp('building_window').setTitle('Add Admin User');
 		  		Ext.getCmp('building_window').show();
 			  }
 		  },
@@ -163,7 +163,7 @@ Ext.onReady(function () {
 						return;
 					}
 					Ext.getCmp('email').setDisabled(true);
-			  		Ext.getCmp('building_window').setTitle('Update Building');
+			  		Ext.getCmp('building_window').setTitle('Update Admin User');
 			  		Ext.getCmp('building_window').show();
 			   	}
 		  },
@@ -254,7 +254,7 @@ Ext.onReady(function () {
 		  		var form = Ext.getCmp('buildingForm').getForm();
 		  		Ext.getCmp('buildingForm').loadRecord(record);
 		  		Ext.getCmp('email').setDisabled(true);
-		  		Ext.getCmp('building_window').setTitle('Update Building');
+		  		Ext.getCmp('building_window').setTitle('Update Admin User');
 		  		Ext.getCmp('building_window').show();
 	    	}
 	    }
