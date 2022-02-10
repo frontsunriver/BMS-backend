@@ -31,14 +31,14 @@
             </div>
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a href="index.html" class="menu_item" style="padding: 0px; margin-top: 50px;">
             <div style="text-align: center; padding-top: 10px;">
               <i class="material-icons">attach_money</i>
               <p>Board Member</p>
             </div>
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="col-md-6" style="margin-top:50px">
