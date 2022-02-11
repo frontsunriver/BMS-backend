@@ -79,7 +79,7 @@ Ext.onReady(function () {
 		 model: 'BuildingComboModel',
 		 proxy: {
 		     type: 'ajax',
-		     url: 'getBuildingList',
+		     url: 'getBuildingComboList',
 		     reader: {
 		        type: 'json',
 		        root: 'data',
@@ -93,7 +93,7 @@ Ext.onReady(function () {
 		 model: 'UnitComboModel',
 		 proxy: {
 		     type: 'ajax',
-		     url: 'getUnitList',
+		     url: 'getUnitComboList',
 		     reader: {
 		        type: 'json',
 		        root: 'data',

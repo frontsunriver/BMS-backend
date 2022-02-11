@@ -34,6 +34,25 @@ class Unit_Model extends CI_Model
 		}
 	}
 
+	public function getComboList($param){
+		$this->db->select("*");
+		
+		if(isset($param['building_id'])) {
+			$this->db->where('building_id', $param['building_id']);
+		}
+
+		if(isset($param['query'])) {
+			$this->db->like('unit_name', $param['query'], 'both');
+		}
+
+		$query = $this->db->get($this->tbl_name);
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
+
 	public function getListCount($param){
 		$this->db->select("count(*) as cnt");
 		

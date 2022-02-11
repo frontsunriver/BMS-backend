@@ -49,6 +49,22 @@ class Building_Model extends CI_Model
 		}
 	}
 
+	public function getBuildingComboList($param = array()) {
+		$this->db->select("*");
+
+		if(isset($param['query'])) {
+			$this->db->like('name', $param['query'], 'both');
+		}
+
+		$query = $this->db->get($this->tbl_name);
+
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
+
 	public function getListWithUnitCount($param) {
 		$this->db->select("count(*) as cnt");
 

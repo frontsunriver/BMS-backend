@@ -40,9 +40,9 @@ $(document).ready(function() {
 	    	}
 		},
 	    {data:'move_date'},
-	    {data:'move_date',
+	    {data:'status',
 	    	render: function(data, type, row) {
-	    		if(row.move_type == 2) {
+	    		if(row.status == 2) {
 	    			return 'APPROVED';
 	    		} else {
 	    			return 'REJECTED';

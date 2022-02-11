@@ -29,10 +29,21 @@ class Setting extends My_Controller
         $this->returnVal($data);
     }
 
+    public function getBuildingComboList() {
+        $data['data'] = $this->buildingModel->getBuildingComboList($_GET);
+        $this->returnVal($data);
+    }
+
     public function getUnitList() {
         $param = $_GET;
         $data['data'] = $this->unitModel->getList($param);
         $data['total'] = $this->unitModel->getListCount($_GET)[0]['cnt'];
+        $this->returnVal($data);
+    }
+
+    public function getUnitComboList() {
+        $param = $_GET;
+        $data['data'] = $this->unitModel->getComboList($param);
         $this->returnVal($data);
     }
 
@@ -208,9 +219,9 @@ class Setting extends My_Controller
 
     public function userAdd() {
         $param = $_POST;
-        $param['password'] = md5('123456789');
+        $param['password'] = md5('1234');
         if($this->userModel->add($param)) {
-            $result['message'] = "Add successfully. Password is created with 123456789";
+            $result['message'] = "Add successfully. Password is created with 1234";
             $result['success'] = true;
         }else {
             $result['message'] = "Something error.";
@@ -222,9 +233,9 @@ class Setting extends My_Controller
     public function adminAdd() {
         $param = $_POST;
         $param['type'] = 2;
-        $param['password'] = md5('123456789');
+        $param['password'] = md5('1234');
         if($this->userModel->add($param)) {
-            $result['message'] = "Add successfully. Password is created with 123456789";
+            $result['message'] = "Add successfully. Password is created with 1234";
             $result['success'] = true;
         }else {
             $result['message'] = "Something error.";
@@ -259,9 +270,9 @@ class Setting extends My_Controller
 
     public function userResetPassword() {
         $param = $_POST;
-        $param['password'] = md5('123456789');
+        $param['password'] = md5('1234');
         if($this->userModel->update($param)) {
-            $result['message'] = "Password is changed with 123456789";
+            $result['message'] = "Password is changed with 1234";
             $result['success'] = true;
         }else {
             $result['message'] = "Something error.";
