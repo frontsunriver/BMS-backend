@@ -26,11 +26,13 @@
     <div class="flexbox-xs layout-column-xs contact-view">
       <div class="flex-xs scroll-y p-a-3 message-content">
       </div>
-    <div style="display: flex; justify-content: center; padding: 20px;">
-        <input type="text" class="form-control" id="send_message_input">
-        <input type="hidden" name="message_id" id="message_id" />
-        <a href="javascript: send_message();" class="btn btn-default"><i class="material-icons message-send-icon" aria-hidden="true">send</i></a>
-    </div>
+    <?php if($user_info['role'] == 2) { ?>
+      <div style="display: flex; justify-content: center; padding: 20px;">
+          <input type="text" class="form-control" id="send_message_input">
+          <input type="hidden" name="message_id" id="message_id" />
+          <a href="javascript: send_message();" class="btn btn-default"><i class="material-icons message-send-icon" aria-hidden="true">send</i></a>
+      </div>
+    <?php }?>
   </div>
 </div>
 <script>

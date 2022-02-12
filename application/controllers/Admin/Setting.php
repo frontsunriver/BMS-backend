@@ -430,5 +430,4 @@ class Setting extends My_Controller
         }   
         $this->returnVal($result);
     }
-
 }

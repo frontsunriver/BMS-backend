@@ -86,7 +86,6 @@
     <!-- endbuild -->
 
     <!-- page scripts -->
-    
     <?php 
     if(isset($add_plugins)) {
       foreach($add_plugins as $plugin) {?>
@@ -107,6 +106,8 @@
     <script type="text/javascript">
       var base_url = "<?php echo BASE_URL?>";
       var site_url = "<?php echo SITE_URL?>";
+      var role = "<?php echo $user_info['role']?>";
     </script>
+    
   </body>
 </html>

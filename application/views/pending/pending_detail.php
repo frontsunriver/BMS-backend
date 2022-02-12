@@ -251,19 +251,22 @@
             <button class="btn btn-primary m-t-1 pull-right" type="submit">Submit</button>
           </div>  
         </form>
-        <div class="m-t-2">
-          <a class="btn btn-primary" href="javascript: approved(<?php echo $list[0]['id']?>)">
-            APPROVED
-          </a>
-          <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            REJECT
-          </a>
+        <?php if($user_info['role'] == 2) { ?>
+          <div class="m-t-2">
+            <a class="btn btn-primary" href="javascript: approved(<?php echo $list[0]['id']?>)">
+              APPROVED
+            </a>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              REJECT
+            </a>
+          </div>
+          <form id="approve_form" action="<?php echo BASE_URL?>/admin/request/approve" method="POST" >
+            <input type="hidden" id="id" name="id" value="<?php echo $list[0]['id']?>">
+            <input type="hidden" id="status" name="status" value="2">
+          </form>
         </div>
-        <form id="approve_form" action="<?php echo BASE_URL?>/admin/request/approve" method="POST" >
-          <input type="hidden" id="id" name="id" value="<?php echo $list[0]['id']?>">
-          <input type="hidden" id="status" name="status" value="2">
-        </form>
-      </div>
+        <?php }?>
+        
     </div>
   </div>
 </div>

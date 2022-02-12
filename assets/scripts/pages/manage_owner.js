@@ -131,11 +131,7 @@ Ext.onReady(function () {
 	    allowBlank: false,
 	});
 
-	var grid = Ext.create('Ext.grid.Panel', {
-		title: 'Owner List',
-	    store: userStore,
-	    flex: 3,
-	    tbar: [
+	var gridtbar = role == 2 ? [
 		  { xtype: 'button', text: 'Import',
 		  		handler: function() {
 		  			buildingUploadWindow.show();
@@ -230,7 +226,23 @@ Ext.onReady(function () {
 			  	}
 			}
 		  },
-		],
+		] : [
+		  '->',
+		  {
+		  	xtype: 'textfield',
+			listeners: {
+			  	change: function(t, newValue, oldValue, eopts){
+			  		searchBuilding(newValue);
+			  	}
+			}
+		  },
+		]
+ 
+	var grid = Ext.create('Ext.grid.Panel', {
+		title: 'Owner List',
+	    store: userStore,
+	    flex: 3,
+	    tbar: gridtbar,
 	    columns: [
 	        { text: 'First Name',  dataIndex: 'first_name', flex: 1 },
 	        { text: 'Last Name', dataIndex: 'last_name', flex: 1},
@@ -251,6 +263,9 @@ Ext.onReady(function () {
 	    	},
 	    	itemdblclick: function(t, record, item, index, e, eops) {
 	    		onAdd = false;
+	    		if(role == 1) {
+	    			Ext.getCmp('submit').hide();
+	    		}
 		  		var form = Ext.getCmp('buildingForm').getForm();
 		  		Ext.getCmp('buildingForm').loadRecord(record);
 		  		Ext.getCmp('email').setDisabled(true);
@@ -260,23 +275,7 @@ Ext.onReady(function () {
 	    }
 	});
 
-	var unitGrid = Ext.create('Ext.grid.Panel', {
-		title: 'Unit List',
-	    store: unitStore,
-	    flex: 2,
-	    tbar: [
-		  // { xtype: 'button', text: 'Import',
-		  // 		handler: function() {
-		  // 			var selection = grid.selModel.getSelection();
-				// 	if(selection.length > 0) {
-				// 		Ext.getCmp('building_upload_id').setValue(selection[0].getData().id);
-				// 	}else {
-				// 		Ext.Msg.alert('Failed', 'Please select the building');
-				// 		return;
-				// 	}
-		  // 			unitUploadWindow.show();
-		  // 		}
-		  // },
+	var unittbar = role == 2 ? [
 		  { xtype: 'button', text: 'Add',
 			  handler: function() {
 			  	var selection = grid.selModel.getSelection();
@@ -344,7 +343,23 @@ Ext.onReady(function () {
 			  	}
 			}
 		  },
-		],
+		] : [
+			'->',
+		  {
+		  	xtype: 'textfield',
+			listeners: {
+			  	change: function(t, newValue, oldValue, eopts){
+			  		searchUnit(newValue);
+			  	}
+			}
+		  },
+		]
+
+	var unitGrid = Ext.create('Ext.grid.Panel', {
+		title: 'Unit List',
+	    store: unitStore,
+	    flex: 2,
+	    tbar: unittbar,
 	    columns: [
 	        { text: 'Building Name',  dataIndex: 'building_name', flex: 1, align: 'center' },
 	        { text: 'Unit Name',  dataIndex: 'unit_name', flex: 1, align: 'center' },
@@ -358,6 +373,9 @@ Ext.onReady(function () {
 	    height: height,
 	    listeners: {
 	    	itemdblclick: function(t, record, item, index, e, eops) {
+	    		if(role == 1) {
+	    			Ext.getCmp('unit_submit').hide();
+	    		}
 	    		onAdd = false;
 		  		var form = Ext.getCmp('unitForm').getForm();
 		  		Ext.getCmp('unitForm').loadRecord(record);
@@ -411,6 +429,7 @@ Ext.onReady(function () {
 	    buttons: [
 	    {
 	        text: 'Submit',
+	        id: 'submit',
 	        formBind: true, //only enabled once the form is valid
 	        disabled: true,
 	        handler: function() {
@@ -451,6 +470,7 @@ Ext.onReady(function () {
 	    buttons: [
 	    {
 	        text: 'Submit',
+	        id: 'unit_submit',
 	        formBind: true, //only enabled once the form is valid
 	        disabled: true,
 	        handler: function() {

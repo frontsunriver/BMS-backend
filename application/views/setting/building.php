@@ -15,3 +15,6 @@
         </div>
     </div>
 </div>
+<script>
+    var role = "<?php echo $user_info['role']?>";
+</script>

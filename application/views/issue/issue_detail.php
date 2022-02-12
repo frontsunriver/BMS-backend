@@ -38,10 +38,12 @@
           }?>
         <?php }?>
       </div>
-    <div style="display: flex; justify-content: center; padding: 20px;">
-        <input type="text" class="form-control" id="send_notify_input">
-        <input type="hidden" name="notify_id" id="notify_id" value="<?php echo $notify_id?>" />
-        <a href="javascript: send_notify();" class="btn btn-default"><i class="material-icons notify-send-icon" aria-hidden="true">send</i></a>
-    </div>
+      <?php if($user_info['role'] == 2) { ?>
+        <div style="display: flex; justify-content: center; padding: 20px;">
+            <input type="text" class="form-control" id="send_notify_input">
+            <input type="hidden" name="notify_id" id="notify_id" value="<?php echo $notify_id?>" />
+            <a href="javascript: send_notify();" class="btn btn-default"><i class="material-icons notify-send-icon" aria-hidden="true">send</i></a>
+        </div>
+      <?php }?>
   </div>
 </div>

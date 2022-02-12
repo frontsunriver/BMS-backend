@@ -10,8 +10,9 @@ Ext.onReady(function () {
 	         {name: 'email',       type: 'string'},
 	         {name: 'mobile',       type: 'string'},
 	         {name: 'type',       type: 'string'},
+	         {name: 'role',       type: 'string'},
 	     ]
-	 });
+	});
 
 	Ext.define('UnitModel', {
 	     extend: 'Ext.data.Model',
@@ -131,11 +132,25 @@ Ext.onReady(function () {
 	    allowBlank: false,
 	});
 
-	var grid = Ext.create('Ext.grid.Panel', {
-		title: 'Owner List',
-	    store: userStore,
-	    flex: 3,
-	    tbar: [
+	var accessStore = Ext.create('Ext.data.Store', {
+	    fields: ['role', 'name'],
+	    data : [
+	        {"role":"1", "name":"Read"},
+	        {"role":"2", "name":"Write"},
+	    ]
+	});
+
+	var accessCombo = Ext.create('Ext.form.ComboBox', {
+		id: 'role',
+		fieldLabel: 'Role',
+	    store: accessStore,
+	    queryMode: 'local',
+	    name: 'role',
+	    displayField: 'name',
+	    valueField: 'role',
+	});
+
+	var tbar = role == 2 ? [
 		  { xtype: 'button', text: 'Import',
 		  		handler: function() {
 		  			buildingUploadWindow.show();
@@ -230,12 +245,35 @@ Ext.onReady(function () {
 			  	}
 			}
 		  },
-		],
+		] : ['->',
+		  {
+		  	xtype: 'textfield',
+			listeners: {
+			  	change: function(t, newValue, oldValue, eopts){
+			  		searchBuilding(newValue);
+			  	}
+			}
+		  },];
+
+	var grid = Ext.create('Ext.grid.Panel', {
+		title: 'Admin List',
+	    store: userStore,
+	    flex: 3,
+	    tbar: tbar,
 	    columns: [
 	        { text: 'First Name',  dataIndex: 'first_name', flex: 1 },
 	        { text: 'Last Name', dataIndex: 'last_name', flex: 1},
 	        { text: 'Email', dataIndex: 'email', flex: 1},
 	        { text: 'Mobile', dataIndex: 'mobile', flex: 1},
+	        { text: 'Role', dataIndex: 'role', flex: 1,
+	          renderer: function(val) {
+	          	if(val == "1") {
+	          		return 'Only Read';
+	          	}else {
+	          		return 'Full Access';
+	          	}
+	          }
+	    	},
 	    ],
 	    dockedItems: [{
 	        xtype: 'pagingtoolbar',
@@ -251,6 +289,10 @@ Ext.onReady(function () {
 	    	},
 	    	itemdblclick: function(t, record, item, index, e, eops) {
 	    		onAdd = false;
+	    		if(role == 2) {
+	    			Ext.getCmp('role').setDisabled(true);
+	    			Ext.getCmp('submit').hide();
+	    		}
 		  		var form = Ext.getCmp('buildingForm').getForm();
 		  		Ext.getCmp('buildingForm').loadRecord(record);
 		  		Ext.getCmp('email').setDisabled(true);
@@ -359,6 +401,7 @@ Ext.onReady(function () {
 	    listeners: {
 	    	itemdblclick: function(t, record, item, index, e, eops) {
 	    		onAdd = false;
+	    		
 		  		var form = Ext.getCmp('unitForm').getForm();
 		  		Ext.getCmp('unitForm').loadRecord(record);
 		  		Ext.getCmp('unit_window').setTitle('Update Unit');
@@ -403,6 +446,7 @@ Ext.onReady(function () {
 		        name: 'mobile',
 		        allowBlank: true
 		    },
+		    accessCombo,
 		    {	
 		    	xtype: 'hiddenfield',
 		    	name: 'id'
@@ -411,6 +455,7 @@ Ext.onReady(function () {
 	    buttons: [
 	    {
 	        text: 'Submit',
+	        id: 'submit',
 	        formBind: true, //only enabled once the form is valid
 	        disabled: true,
 	        handler: function() {
