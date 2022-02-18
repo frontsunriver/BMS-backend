@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require_once(__DIR__."/../../core/My_controller.php");
+require_once(__DIR__."/../../core/My_Controller.php");
 /**
 *  User Controller
 */
@@ -9,6 +9,7 @@ class Request extends My_Controller
     public function __construct() {
         parent::__construct();
         $this->load->model('movement_model','movementModel');
+        $this->load->model('building_model', 'buildingModel');
     }
 
     public function pendingRequest() {
@@ -55,11 +56,18 @@ class Request extends My_Controller
     }
 
     public function getArchivedRequest() {
-    	$param = array('notStatus' => 1);
+        $param = $_GET;
+    	$param['notStatus'] = 1;
         $list = array();
-        $list = $this->movementModel->getList($param);
+        $list = $this->movementModel->getAdminList($param);
         $result['data'] = $list;
-        echo json_encode($result);
+        $result['total'] = $this->movementModel->getAdminListCount($param)[0]['cnt'];
+        $this->returnVal($result);
+    }
+
+    public function getBuildingComboList() {
+        $data['data'] = $this->buildingModel->getBuildingComboList($_GET);
+        $this->returnVal($data);
     }
 
    public function archivedDetail() {
