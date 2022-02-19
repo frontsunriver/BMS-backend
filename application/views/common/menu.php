@@ -16,10 +16,10 @@
           </a>
         </li>
         <li>
-          <a href="<?php echo BASE_URL?>/admin/report" class="menu_item <?php echo $menu_item == 'report' ? 'active' : ''; ?>" style="padding: 0px; margin-top: 50px;">
+          <a href="<?php echo BASE_URL?>/admin/visit/visitentry" class="menu_item <?php echo $menu_item == 'view_entry' ? 'active' : ''; ?>" style="padding: 0px; margin-top: 50px;">
             <div style="text-align: center; padding-top: 10px;">
               <i class="fas fa-pencil-alt" style="font-size: 45px;"></i>
-              <p>Report</p>
+              <p>Visit Entry</p>
             </div>
           </a>
         </li>
