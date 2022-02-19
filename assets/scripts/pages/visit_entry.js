@@ -15,7 +15,8 @@ Ext.onReady(function () {
 	         {name: 'visit_time',       type: 'string'},
 	         {name: 'purpose',       type: 'string'},
 	         {name: 'company',       type: 'string'},
-	         {name: 'emirates_id',  type: 'string'}
+	         {name: 'emirates_id',  type: 'string'},
+	         {name: 'eid',       type: 'string'}
 	     ]
 	});
 
@@ -193,11 +194,12 @@ Ext.onReady(function () {
 	        { text: 'Time', dataIndex: 'visit_time', flex: 1},
 	        { text: 'Purpose', dataIndex: 'purpose', flex: 1},
 	        { text: 'Company', dataIndex: 'company', flex: 1},
-	        { text: 'Emirate', dataIndex: 'emirates_id', flex: 1, renderer: function(val) {
-	        	if(val != '') {
-	        		return `<a href="${base_url}/${val}" target="_blank"><i class="fas fa-eye"></i></a>`;
-	        	}
-	        }},
+	        { text: 'EID', dataIndex: 'eid', flex: 1},
+	        // { text: 'Emirate', dataIndex: 'emirates_id', flex: 1, renderer: function(val) {
+	        // 	if(val != '') {
+	        // 		return `<a href="${base_url}/${val}" target="_blank"><i class="fas fa-eye"></i></a>`;
+	        // 	}
+	        // }},
 	    ],
 	    dockedItems: [{
 	        xtype: 'pagingtoolbar',
@@ -250,6 +252,7 @@ Ext.onReady(function () {
 		    	xtype: 'datefield',
 		        fieldLabel: 'Date',
 		        name: 'visit_date',
+		        value: new Date(),
 		        format: 'Y-m-d',
 		        allowBlank: false
 		    },
@@ -258,6 +261,7 @@ Ext.onReady(function () {
 		        fieldLabel: 'Time',
 		        name: 'visit_time',
 		        increment: 30,
+		        value: Ext.util.Format.date(new Date(), 'g:i A'),
 		        allowBlank: false
 		    },
 		    {
@@ -273,14 +277,20 @@ Ext.onReady(function () {
 		        allowBlank: false
 		    },
 		    {
-		    	xtype: 'filefield',
-		        name: 'file',
-		        fieldLabel: 'File',
-		        labelWidth: 50,
-		        msgTarget: 'side',
-		        anchor: '100%',
-		        buttonText: 'Select File...'
+		    	xtype: 'textfield',
+		        fieldLabel: 'EID Number',
+		        name: 'eid',
+		        allowBlank: false
 		    },
+		    // {
+		    // 	xtype: 'filefield',
+		    //     name: 'file',
+		    //     fieldLabel: 'File',
+		    //     labelWidth: 50,
+		    //     msgTarget: 'side',
+		    //     anchor: '100%',
+		    //     buttonText: 'Select File...'
+		    // },
 		    {	
 		    	xtype: 'hiddenfield',
 		    	name: 'id'
