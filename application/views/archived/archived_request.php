@@ -21,4 +21,5 @@
 </div>
 <script>
     var role = "<?php echo $user_info['role']?>";
+    var building_id = "<?php echo $user_info['building_id']?>";
 </script>

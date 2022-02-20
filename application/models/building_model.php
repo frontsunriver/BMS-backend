@@ -56,6 +56,10 @@ class Building_Model extends CI_Model
 			$this->db->like('name', $param['query'], 'both');
 		}
 
+		if(isset($param['id'])) {
+			$this->db->where('id', $param['id']);
+		}
+
 		$query = $this->db->get($this->tbl_name);
 
 		if ($query->num_rows() > 0) {

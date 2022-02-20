@@ -5,6 +5,7 @@
     <div style="padding: 0px 30px;">
     <a href="<?php echo BASE_URL?>/admin/dashboard"><p class="nav-title <?php echo $menu_item == 'dashboard' ? 'active' : ''; ?>"><i class="fas fa-home" style="font-size: 45px; margin-right: 10px"></i><span>Dashboard</span></p></a>
     </div>
+    <?php if($user_info['role'] == 2) {?>
     <div class="col-md-6" style="margin-top:50px">
       <ul class="nav">
         <li>
@@ -69,5 +70,31 @@
         </li>
       </ul>
     </div>
+    <?php } else { ?>
+      <div class="col-md-6" style="margin-top:50px">
+      <ul class="nav">
+        <li>
+          <a href="<?php echo BASE_URL?>/admin/visit/visitentry" class="menu_item <?php echo $menu_item == 'view_entry' ? 'active' : ''; ?>" style="padding: 0px; margin-top: 50px;">
+            <div style="text-align: center; padding-top: 10px;">
+              <i class="fas fa-pencil-alt" style="font-size: 45px;"></i>
+              <p>Visit Entry</p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6" style="margin-top:50px">
+      <ul class="nav">
+        <li>
+          <a href="<?php echo BASE_URL?>/admin/request/archivedRequest" class="menu_item <?php echo $menu_item == 'archived' ? 'active' : ''; ?>" style="padding: 0px; margin-top: 50px;">
+            <div style="text-align: center; padding-top: 10px;">
+              <i class="fas fa-check-double" style="font-size: 45px;"></i>
+              <p>Archived Requests</p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <?php }?>
   </nav>
 </div>

@@ -11,6 +11,7 @@ Ext.onReady(function () {
 	         {name: 'mobile',       type: 'string'},
 	         {name: 'type',       type: 'string'},
 	         {name: 'role',       type: 'string'},
+	         {name: 'building_id', type: 'string'}
 	     ]
 	});
 
@@ -53,7 +54,6 @@ Ext.onReady(function () {
 		        totalProperty: 'total'
 		     },
 		 },
-		 
 		 autoLoad: true,
 		 listeners: {
 		 	beforeload: function(store, op, eop){
@@ -87,7 +87,7 @@ Ext.onReady(function () {
 		        totalProperty: 'total'
 		     }
 		 },
-		 autoLoad: false	
+		 autoLoad: true	
 	});
 
 	var unitComboStore = Ext.create('Ext.data.Store', {
@@ -106,20 +106,13 @@ Ext.onReady(function () {
 
 	var buildingCombo = Ext.create('Ext.form.ComboBox', {
 	    fieldLabel: 'Building',
+	    id: 'buildingCombo',
 	    store: buildingComboStore,
 	    queryMode: 'local',
 	    displayField: 'name',
 	    valueField: 'id',
 	    name: 'building_id',
-	    allowBlank: false,
-	    listeners: {
-	    	change: function(t, newValue, oldValue, eops){
-	    		unitComboStore.getProxy().extraParams = {
-	    			building_id: newValue
-	    		}
-	    		unitComboStore.load();
-	    	}
-	    }
+	    allowBlank: true,
 	});
 
 	var unitCombo = Ext.create('Ext.form.ComboBox', {
@@ -148,6 +141,15 @@ Ext.onReady(function () {
 	    name: 'role',
 	    displayField: 'name',
 	    valueField: 'role',
+	    listeners: {
+	    	change: function(t, newValue, oldValue, eops) {
+	    		if(newValue == "1") {
+	    			Ext.getCmp('buildingCombo').show();
+	    		}else {
+	    			Ext.getCmp('buildingCombo').hide();
+	    		}
+	    	}
+	    }
 	});
 
 	var tbar = role == 2 ? [
@@ -177,6 +179,13 @@ Ext.onReady(function () {
 						Ext.Msg.alert('Failed', 'Please select the record');
 						return;
 					}
+					var record = selection[0].getData();
+					if(record.role == "1") {
+			  			Ext.getCmp('buildingCombo').show();
+			  			if(record.building_id == "0") {
+			  				Ext.getCmp('buildingCombo').setValue("");
+			  			}
+			  		}
 					Ext.getCmp('email').setDisabled(true);
 			  		Ext.getCmp('building_window').setTitle('Update Admin User');
 			  		Ext.getCmp('building_window').show();
@@ -268,7 +277,7 @@ Ext.onReady(function () {
 	        { text: 'Role', dataIndex: 'role', flex: 1,
 	          renderer: function(val) {
 	          	if(val == "1") {
-	          		return 'Only Read';
+	          		return 'Security Admin';
 	          	}else {
 	          		return 'Full Access';
 	          	}
@@ -289,12 +298,18 @@ Ext.onReady(function () {
 	    	},
 	    	itemdblclick: function(t, record, item, index, e, eops) {
 	    		onAdd = false;
-	    		if(role == 2) {
+	    		if(role == 1) {
 	    			Ext.getCmp('role').setDisabled(true);
 	    			Ext.getCmp('submit').hide();
 	    		}
 		  		var form = Ext.getCmp('buildingForm').getForm();
 		  		Ext.getCmp('buildingForm').loadRecord(record);
+		  		if(record.data.role == "1") {
+		  			Ext.getCmp('buildingCombo').show();
+		  			if(record.data.building_id == "0") {
+		  				Ext.getCmp('buildingCombo').setValue("");
+		  			}
+		  		}
 		  		Ext.getCmp('email').setDisabled(true);
 		  		Ext.getCmp('building_window').setTitle('Update Admin User');
 		  		Ext.getCmp('building_window').show();
@@ -447,6 +462,7 @@ Ext.onReady(function () {
 		        allowBlank: true
 		    },
 		    accessCombo,
+		    buildingCombo,
 		    {	
 		    	xtype: 'hiddenfield',
 		    	name: 'id'
@@ -466,46 +482,6 @@ Ext.onReady(function () {
 	        text: 'Close',
 	        handler: function() {
 	            Ext.getCmp('building_window').hide();
-	        }
-	    }],
-	});
-
-	var unitForm = Ext.create('Ext.form.Panel', {
-		id: 'unitForm',
-	    bodyPadding: 20,
-	    width: 250,
-	    url: 'save-form.php',
-	    layout: 'anchor',
-	    defaults: {
-	        anchor: '100%'
-	    },
-	    formBind: true,
-	    items: [
-		    buildingCombo,
-		    unitCombo,
-		    {	
-		    	xtype: 'hiddenfield',
-		    	name: 'id'
-		    },
-		    {	
-		    	xtype: 'hiddenfield',
-		    	name: 'user_id',
-		    	id: 'user_id'
-		    }
-	    ],
-	    buttons: [
-	    {
-	        text: 'Submit',
-	        formBind: true, //only enabled once the form is valid
-	        disabled: true,
-	        handler: function() {
-	            unitAction();
-	        }
-	    },
-	    {
-	        text: 'Close',
-	        handler: function() {
-	            Ext.getCmp('unit_window').hide();
 	        }
 	    }],
 	});
@@ -601,20 +577,10 @@ Ext.onReady(function () {
 		title: 'Add',
 		id: 'building_window',
 		width: 500,
-		height: 300,
+		height: 350,
 		layout: 'fit',
 		closeAction: 'hide',
 		items: [buildingForm],
-	});
-
-	var unitWindow = Ext.create('Ext.window.Window', {
-		title: 'Add',
-		id: 'unit_window',
-		width: 500,
-		height: 300,
-		layout: 'fit',
-		closeAction: 'hide',
-		items: [unitForm],
 	});
 
 	var buildingUploadWindow = Ext.create('Ext.window.Window', {

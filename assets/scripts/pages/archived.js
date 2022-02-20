@@ -109,7 +109,14 @@ Ext.onReady(function () {
 		        totalProperty: 'total'
 		     },
 		 },
-		 
+		 listeners: {
+		 	beforeload: function(store, op, eopts) {
+		 		if(role == 1) {
+		 			console.log(1);
+		 			store.getProxy().setExtraParam('building_id', building_id);
+		 		}
+		 	}
+		 },
 		 autoLoad: true,
 	});
 
@@ -124,7 +131,14 @@ Ext.onReady(function () {
 		        totalProperty: 'total'
 		     }
 		 },
-		 autoLoad: true	
+		 autoLoad: true,
+		 listeners: {
+		 	beforeload: function(store, op, eopts) {
+		 		if(role == 1) {
+		 			store.getProxy().setExtraParam('id', building_id);
+		 		}
+		 	}
+		 }	
 	});
 
 	var buildingCombo = Ext.create('Ext.form.ComboBox', {

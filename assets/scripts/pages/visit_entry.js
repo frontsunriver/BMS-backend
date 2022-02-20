@@ -47,7 +47,14 @@ Ext.onReady(function () {
 		        totalProperty: 'total'
 		     },
 		 },
-		 
+		 listeners: {
+		 	beforeload: function(store, op, eopts) {
+		 		if(role == 1) {
+		 			console.log(1);
+		 			store.getProxy().setExtraParam('building_id', building_id);
+		 		}
+		 	}
+		 },
 		 autoLoad: true,
 	});
 
@@ -61,6 +68,14 @@ Ext.onReady(function () {
 		        root: 'data',
 		        totalProperty: 'total'
 		     }
+		 },
+		 listeners: {
+		 	beforeload: function(store, op, eopts) {
+		 		if(role == 1) {
+		 			console.log(1);
+		 			store.getProxy().setExtraParam('id', building_id);
+		 		}
+		 	}
 		 },
 		 autoLoad: true	
 	});
@@ -107,7 +122,11 @@ Ext.onReady(function () {
 	    allowBlank: false,
 	});
 
-	var gridtbar = role == 2 ? [
+	var grid = Ext.create('Ext.grid.Panel', {
+		title: 'Visit Entry List',
+	    store: archivedStore,
+	    flex: 3,
+	    tbar: [
 		  { xtype: 'button', text: 'Add',
 			  handler: function() {
 			  	onAdd = true;
@@ -168,23 +187,7 @@ Ext.onReady(function () {
 			  	}
 			}
 		  },
-		] : [
-		  '->',
-		  {
-		  	xtype: 'textfield',
-			listeners: {
-			  	change: function(t, newValue, oldValue, eopts){
-			  		searchBuilding(newValue);
-			  	}
-			}
-		  },
-		];
-
-	var grid = Ext.create('Ext.grid.Panel', {
-		title: 'Visit Entry List',
-	    store: archivedStore,
-	    flex: 3,
-	    tbar: gridtbar,
+		],
 	    columns: [
 	        { text: 'Building Name',  dataIndex: 'building_name', flex: 1 },
 	        { text: 'Unit Name', dataIndex: 'unit_name', flex: 1},
