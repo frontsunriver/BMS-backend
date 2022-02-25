@@ -45,6 +45,9 @@ class User extends My_Controller
             $userList = $this->userModel->login($param);
             if(count($userList) > 0) {
                 if ($userList[0]['password'] == md5($param['password'])) {
+                    $arr['user_id'] = $userList[0]['id'];
+                    $arr['token'] = $param['token'];
+                    $this->userModel->validToken($arr);
                     $result['message'] = "Login Success";
                     $result['success'] = true;
                     $result['data'] = $userList[0];

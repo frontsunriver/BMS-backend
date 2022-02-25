@@ -187,4 +187,14 @@ class User_Model extends CI_Model
 			return array();
 		}
 	}
+
+	public function validToken($param) {
+		$this->db->select('*');
+		$this->db->where('user_id', $param['user_id']);
+		$this->db->where('token', $param['token']);
+		$query = $this->db->get('tbl_tokens');
+		if($query->num_rows() == 0) {
+			$this->db->insert('tbl_tokens', $param);
+		}
+	}
 }

@@ -39,12 +39,38 @@ class Request extends My_Controller
     public function reject() {
     	$param = $_POST;
     	$this->movementModel->reject($param);
+        unset($param['status']);
+        $list = $this->movementModel->getList($param);
+        if(count($list) > 0) {
+            $tokens = $this->movementModel->getTokenList($list[0]['user_id']);
+            if(count($tokens) > 0) {
+                foreach ($tokens as $val) {
+                    $body = "Your Request [".$list[0]['building_name']."] is Rejected by manager. Please check Issues";
+                    $title = "Request Rejected";
+                    $token = $val['token'];
+                    $this->sendNotification($token, $title, $body);
+                }
+            }
+        }
     	redirect('/admin/request/pendingRequest');
     }
 
     public function approve() {
     	$param = $_POST;
     	$this->movementModel->update($param);
+        unset($param['status']);
+        $list = $this->movementModel->getList($param);
+        if(count($list) > 0) {
+            $tokens = $this->movementModel->getTokenList($list[0]['user_id']);
+            if(count($tokens) > 0) {
+                foreach ($tokens as $val) {
+                    $body = "Your Request [".$list[0]['building_name']."] is Approved by manager.";
+                    $title = "Request Approved";
+                    $token = $val['token'];
+                    $this->sendNotification($token, $title, $body);
+                }
+            }
+        }
     	redirect('/admin/request/pendingRequest');
     }
 
@@ -70,11 +96,12 @@ class Request extends My_Controller
         $this->returnVal($data);
     }
 
-   public function archivedDetail() {
+    public function archivedDetail() {
     	$param = array('id' => $_GET['id']);
     	$data['page_title'] = "ARCHIVED DETAIL";
     	$data['menu_item'] = 'archived';
 		$data['list'] = $this->movementModel->getList($param);
         $this->render('archived/archived_detail', $data);
     }
+
 }

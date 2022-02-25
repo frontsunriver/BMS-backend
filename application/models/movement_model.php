@@ -177,4 +177,16 @@ class Movement_Model extends CI_Model
 		else
 			return false;
 	}
+
+	public function getTokenList($param) {
+		$this->db->select("*");
+		$this->db->where('user_id', $param);
+		$query = $this->db->get('tbl_tokens');
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
+
 }
