@@ -98,4 +98,25 @@ class Owner_model extends CI_Model
 		else
 			return false;
 	}
+
+	public function getUserAndToken($param) {
+		$this->db->select('tbl_tokens.token, tbl_owners.*');
+		$this->db->join("tbl_tokens", "tbl_tokens.user_id = tbl_owners.user_id", 'left');
+
+		if($param['building_id'] != 0) {
+            if($param['unit_id'] == 0) {
+            	$this->db->where('tbl_owners.building_id', $param['building_id']);
+            } else {
+            	$this->db->where('tbl_owners.building_id', $param['building_id']);
+            	$this->db->where('tbl_owners.unit_id', $param['unit_id']);
+            }
+        }
+        
+        $query = $this->db->get($this->tbl_name);
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
 }

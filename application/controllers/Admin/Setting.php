@@ -430,4 +430,29 @@ class Setting extends My_Controller
         }   
         $this->returnVal($result);
     }
+
+    public function sendMessage() {
+        $param = $_POST;
+        $title = $param['title'];
+        $body = $param['content'];
+        $result['success'] = false;
+        $result['message'] = 'something went wrong.';
+        $ownerList = $this->ownerModel->getUserAndToken($param);
+        try {
+            if(count($ownerList) > 0) {
+                foreach ($ownerList as $item) {
+                    if(!isset($item['token']) && $item['token'] != "") {
+                        sendNotification($item['token'], $title, $body);
+                    }
+                }
+            }
+            $result['success'] = true;
+            $result['message'] = 'Message sent successfully.';
+        }catch (Exception $e) {
+            $result['success'] = false;
+            $result['message'] = 'something went wrong.';
+        }
+        
+        $this->returnVal($result);
+    }
 }

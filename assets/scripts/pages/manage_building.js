@@ -20,6 +20,22 @@ Ext.onReady(function () {
 	     ]
 	});
 
+	Ext.define('BuildingComboModel', {
+	     extend: 'Ext.data.Model',
+	     fields: [
+	         {name: 'id', type: 'string'},
+	         {name: 'name',  type: 'string'},
+	     ]
+	});
+
+	Ext.define('UnitComboModel', {
+	     extend: 'Ext.data.Model',
+	     fields: [
+	         {name: 'id', type: 'string'},
+	         {name: 'unit_name',  type: 'string'},
+	     ]
+	});
+
 	var buildingStore = Ext.create('Ext.data.Store', {
 		 model: 'BuildingModel',
 		 proxy: {
@@ -46,6 +62,79 @@ Ext.onReady(function () {
 		     }
 		 },
 		 autoLoad: false	
+	});
+
+	var buildingComboStore = Ext.create('Ext.data.Store', {
+		 model: 'BuildingComboModel',
+		 proxy: {
+		     type: 'ajax',
+		     url: 'setting/getBuildingComboList',
+		     reader: {
+		        type: 'json',
+		        root: 'data',
+		        totalProperty: 'total'
+		     }
+		 },
+		 listeners: {
+		     load: function(store, records) {
+		          store.insert(0, [{
+		              name: 'Select All',
+		              id: "0"
+		          }]);
+		     }
+	     },
+		 autoLoad: true	
+	});
+
+	var unitComboStore = Ext.create('Ext.data.Store', {
+		 model: 'UnitComboModel',
+		 proxy: {
+		     type: 'ajax',
+		     url: 'setting/getUnitComboList',
+		     reader: {
+		        type: 'json',
+		        root: 'data',
+		        totalProperty: 'total'
+		     }
+		 },
+		  listeners: {
+		     load: function(store, records) {
+		          store.insert(0, [{
+		              unit_name: 'Select All',
+		              id: "0"
+		          }]);
+		     }
+		  },
+		 autoLoad: false	
+	});
+
+	var buildingCombo = Ext.create('Ext.form.ComboBox', {
+	    fieldLabel: 'Building',
+	    store: buildingComboStore,
+	    queryMode: 'local',
+	    displayField: 'name',
+	    valueField: 'id',
+	    name: 'building_id',
+	    allowBlank: false,
+	    listeners: {
+	    	change: function(t, newValue, oldValue, eops) {
+	    		unitComboStore.getProxy().extraParams = {
+	    			building_id: newValue
+	    		}
+	    		unitComboStore.load();
+	    		unitCombo.setValue("");
+	    	}
+	    }
+	});
+
+	var unitCombo = Ext.create('Ext.form.ComboBox', {
+	    fieldLabel: 'Unit',
+	    store: unitComboStore,
+	    queryMode: 'local',
+	    displayField: 'unit_name',
+	    name: 'unit_id',
+	    valueField: 'id',
+	    allowBlank: false,
 	});
 
 	var gridtbar = role == 2 ? [
@@ -102,6 +191,11 @@ Ext.onReady(function () {
 						Ext.Msg.alert('Failed', 'Please select the record');
 						return;
 					}
+			    }
+		  },
+		  { xtype: 'button', text: 'Send Message',
+			    handler: function() {
+			    	Ext.getCmp('message_window').show();
 			    }
 		  },
 		  '->',
@@ -325,6 +419,50 @@ Ext.onReady(function () {
 	    }],
 	});
 
+	var sendMessageForm = Ext.create('Ext.form.Panel', {
+		id: 'sendMessageForm',
+	    bodyPadding: 20,
+	    width: 250,
+	    url: 'save-form.php',
+	    layout: 'anchor',
+	    defaults: {
+	        anchor: '100%'
+	    },
+	    formBind: true,
+	    items: [
+		    buildingCombo,
+		    unitCombo,
+		    {
+		    	xtype: 'textfield',
+		        fieldLabel: 'Title',
+		        name: 'title',
+		        allowBlank: false
+		    },
+		    {
+		    	xtype: 'textarea',
+		        fieldLabel: 'Content',
+		        name: 'content',
+		        allowBlank: false
+		    },
+	    ],
+	    buttons: [
+	    {
+	        text: 'Send',
+	        id: 'message_submit',
+	        formBind: true, //only enabled once the form is valid
+	        disabled: true,
+	        handler: function() {
+	            sendMessage();
+	        }
+	    },
+	    {
+	        text: 'Close',
+	        handler: function() {
+	            Ext.getCmp('message_window').hide();
+	        }
+	    }],
+	});
+
 	var unitForm = Ext.create('Ext.form.Panel', {
 		id: 'unitForm',
 	    bodyPadding: 20,
@@ -493,6 +631,16 @@ Ext.onReady(function () {
 		items: [unitUploadForm],
 	});
 
+	var messageWindow = Ext.create('Ext.window.Window', {
+		title: 'Send Message',
+		id: 'message_window',
+		width: 500,
+		height: 300,
+		layout: 'fit',
+		closeAction: 'hide',
+		items: [sendMessageForm],
+	});
+
 	function searchBuilding(text) {
 		buildingStore.getProxy().extraParams = {
 			query: text
@@ -560,6 +708,29 @@ Ext.onReady(function () {
                 		Ext.getCmp('unit_window').hide();
                 		unitStore.load();
                 		buildingStore.load();
+                	}else {
+                		Ext.Msg.alert('Failed', action.message);
+                	}
+                },
+                failure: function(form, action) {
+                    Ext.Msg.alert('Failed', action.result.message);
+                }
+            });
+        }
+	}
+
+	function sendMessage() {
+		var url = "setting/sendMessage";
+		var form = Ext.getCmp('sendMessageForm').getForm();
+        if (form.isValid()) {
+            form.submit({
+            	method: 'POST',
+            	url: url,
+                success: function(form, action) {
+                	if(action.result.success) {
+                		Ext.Msg.alert('Success', action.result.message);	
+                		Ext.getCmp('message_window').hide();
+                		buildingComboStore.load();
                 	}else {
                 		Ext.Msg.alert('Failed', action.message);
                 	}
