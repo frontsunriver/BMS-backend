@@ -100,4 +100,17 @@ class Visit_model extends CI_Model
 		else
 			return false;
 	}
+
+	public function getUnitList($param) {
+		$this->db->select('id as unit_id, unit_name');
+		if(isset($param['building_id'])) {
+			$this->db->where('building_id', $param['building_id']);
+		}
+		$query = $this->db->get('tbl_units');
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}else {
+			return array();
+		}
+	}
 }

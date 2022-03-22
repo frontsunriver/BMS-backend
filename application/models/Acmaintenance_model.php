@@ -1,38 +1,27 @@
 <?php
 
 /**
-*  Movement Model
+*  Card Model
 */
-class Movement_Model extends CI_Model
+class Acmaintenance_Model extends CI_Model
 {
 	public $tbl_name;
 	public function __construct() {
         parent::__construct();
-		$this->tbl_name = "tbl_noc_move";
+		$this->tbl_name = "tbl_ac_maintenance";
     }
 
 	public function getList($param){
-		$this->db->select("tbl_noc_move.*, tbl_units.unit_name, tbl_buildings.name as building_name, tbl_users.first_name, tbl_users.last_name");
-		$this->db->join('tbl_buildings', 'tbl_noc_move.building_id = tbl_buildings.id');
-		$this->db->join('tbl_units', 'tbl_units.id = tbl_noc_move.unit_id');
-		$this->db->join('tbl_users', 'tbl_noc_move.user_id = tbl_users.id');
-		if(isset($param['move_type'])) {
-			$this->db->where('tbl_noc_move.move_type', $param['move_type']);
-		}
-		if(isset($param['building_id'])) {
-			$this->db->where('tbl_noc_move.building_id', $param['building_id']);
-		}
+		$this->db->select("tbl_ac_maintenance.*, tbl_units.unit_name, tbl_buildings.name as building_name, tbl_users.first_name, tbl_users.last_name");
+		$this->db->join('tbl_buildings', 'tbl_ac_maintenance.building_id = tbl_buildings.id');
+		$this->db->join('tbl_units', 'tbl_units.id = tbl_ac_maintenance.unit_id');
+		$this->db->join('tbl_users', 'tbl_ac_maintenance.user_id = tbl_users.id');
+		
 		if(isset($param['user_id'])) {
-			$this->db->where('tbl_noc_move.user_id', $param['user_id']);
-		}
-		if(isset($param['status'])) {
-			$this->db->where('tbl_noc_move.status', $param['status']);
-		}
-		if(isset($param['notStatus'])) {
-			$this->db->where('tbl_noc_move.status !=', $param['notStatus']);
+			$this->db->where('tbl_ac_maintenance.user_id', $param['user_id']);
 		}
 		if(isset($param['id'])) {
-			$this->db->where('tbl_noc_move.id', $param['id']);
+			$this->db->where('tbl_ac_maintenance.id', $param['id']);
 		}
 		
 		$query = $this->db->get($this->tbl_name);
@@ -44,28 +33,23 @@ class Movement_Model extends CI_Model
 	}
 
 	public function getAdminList($param){
-		$this->db->select("tbl_noc_move.*, tbl_units.unit_name, tbl_buildings.name as building_name, tbl_users.first_name, tbl_users.last_name");
-		$this->db->join('tbl_buildings', 'tbl_noc_move.building_id = tbl_buildings.id');
-		$this->db->join('tbl_units', 'tbl_units.id = tbl_noc_move.unit_id');
-		$this->db->join('tbl_users', 'tbl_noc_move.user_id = tbl_users.id');
-		if(isset($param['move_type'])) {
-			$this->db->where('tbl_noc_move.move_type', $param['move_type']);
+		$this->db->select("tbl_ac_maintenance.*, tbl_units.unit_name, tbl_buildings.name as building_name, tbl_users.first_name, tbl_users.last_name");
+		$this->db->join('tbl_buildings', 'tbl_ac_maintenance.building_id = tbl_buildings.id');
+		$this->db->join('tbl_units', 'tbl_units.id = tbl_ac_maintenance.unit_id');
+		$this->db->join('tbl_users', 'tbl_ac_maintenance.user_id = tbl_users.id');
+		
+		if(isset($param['building_id']) && !empty($param['building_id'])) {
+			$this->db->where('tbl_ac_maintenance.building_id', $param['building_id']);
 		}
-		if(isset($param['building_id']) && $param['building_id'] != "") {
-			$this->db->where('tbl_noc_move.building_id', $param['building_id']);
-		}
+
 		if(isset($param['user_id'])) {
-			$this->db->where('tbl_noc_move.user_id', $param['user_id']);
+			$this->db->where('tbl_ac_maintenance.user_id', $param['user_id']);
 		}
-		if(isset($param['status'])) {
-			$this->db->where('tbl_noc_move.status', $param['status']);
-		}
-		if(isset($param['notStatus'])) {
-			$this->db->where('tbl_noc_move.status !=', $param['notStatus']);
-		}
+		
 		if(isset($param['id'])) {
-			$this->db->where('tbl_noc_move.id', $param['id']);
+			$this->db->where('tbl_ac_maintenance.id', $param['id']);
 		}
+		
 		if(isset($param['query'])) {
 			$this->db->group_start();
 			$this->db->like('tbl_buildings.name', $param['query'], 'both');
@@ -83,27 +67,22 @@ class Movement_Model extends CI_Model
 
 	public function getAdminListCount($param){
 		$this->db->select("count(*) as cnt");
-		$this->db->join('tbl_buildings', 'tbl_noc_move.building_id = tbl_buildings.id');
-		$this->db->join('tbl_units', 'tbl_units.id = tbl_noc_move.unit_id');
-		$this->db->join('tbl_users', 'tbl_noc_move.user_id = tbl_users.id');
-		if(isset($param['move_type'])) {
-			$this->db->where('tbl_noc_move.move_type', $param['move_type']);
+		$this->db->join('tbl_buildings', 'tbl_ac_maintenance.building_id = tbl_buildings.id');
+		$this->db->join('tbl_units', 'tbl_units.id = tbl_ac_maintenance.unit_id');
+		$this->db->join('tbl_users', 'tbl_ac_maintenance.user_id = tbl_users.id');
+		
+		if(isset($param['building_id']) && !empty($param['building_id'])) {
+			$this->db->where('tbl_ac_maintenance.building_id', $param['building_id']);
 		}
-		if(isset($param['building_id']) && $param['building_id'] != "") {
-			$this->db->where('tbl_noc_move.building_id', $param['building_id']);
-		}
+		
 		if(isset($param['user_id'])) {
-			$this->db->where('tbl_noc_move.user_id', $param['user_id']);
+			$this->db->where('tbl_ac_maintenance.user_id', $param['user_id']);
 		}
-		if(isset($param['status'])) {
-			$this->db->where('tbl_noc_move.status', $param['status']);
-		}
-		if(isset($param['notStatus'])) {
-			$this->db->where('tbl_noc_move.status !=', $param['notStatus']);
-		}
+		
 		if(isset($param['id'])) {
-			$this->db->where('tbl_noc_move.id', $param['id']);
+			$this->db->where('tbl_ac_maintenance.id', $param['id']);
 		}
+
 		if(isset($param['query'])) {
 			$this->db->group_start();
 			$this->db->like('tbl_buildings.name', $param['query'], 'both');
@@ -133,6 +112,14 @@ class Movement_Model extends CI_Model
 	}
 
 	public function add($param) {
+		$this->db->insert($this->tbl_name, $param);
+		if($this->db->affected_rows() > 0)
+			return true;
+		else
+			return false;
+	}
+
+	public function accessAdd($param) {
 		$this->db->insert($this->tbl_name, $param);
 		if($this->db->affected_rows() > 0)
 			return true;

@@ -12,22 +12,23 @@ class User_Model extends CI_Model
     }
 
 	public function getUserList($param){
-		$this->db->select("*");
+		$this->db->select("tbl_users.*, tbl_buildings.name as building_name");
+		$this->db->join('tbl_buildings', 'tbl_users.building_id = tbl_buildings.id', 'left');
 		if(isset($param['email'])) {
-			$this->db->where('email', $param['email']);	
+			$this->db->where('tbl_users.email', $param['email']);	
 		}
 		if(isset($param['building_id'])) {
-			$this->db->where('building_id', $param['building_id']);		
+			$this->db->where('tbl_users.building_id', $param['building_id']);		
 		}
 		if(isset($param['type'])) {
 			$this->db->where('type', $param['type']);		
 		}
 		if(isset($param['query'])) {
 			$this->db->group_start();
-			$this->db->like('first_name', $param['query'], 'both');
-			$this->db->or_like('last_name', $param['query'], 'both');
-			$this->db->or_like('email', $param['query'], 'both');
-			$this->db->or_like('mobile', $param['query'], 'both');
+			$this->db->like('tbl_users.first_name', $param['query'], 'both');
+			$this->db->or_like('tbl_users.last_name', $param['query'], 'both');
+			$this->db->or_like('tbl_users.email', $param['query'], 'both');
+			$this->db->or_like('tbl_users.mobile', $param['query'], 'both');
 			$this->db->group_end();
 		}
 		if(isset($param['start'])) {

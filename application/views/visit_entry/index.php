@@ -1,3 +1,12 @@
+<style type="text/css">
+    .x-panel-header-default {
+        background-color: #50647b;
+        border: 1px solid #50647b;
+    }
+    .x-panel-body-default {
+        border-color: #50647b;
+    }
+</style>
 <div class="content-view">
   <div class="container">
     <div class="card">

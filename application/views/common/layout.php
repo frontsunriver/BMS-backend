@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/extjs/4.2.1/resources/css/ext-all-neptune-debug.css"/>
     
-    
+    <link rel="shortcut icon" href="<?php echo ASSET_URL;?>images/favicon.ico" />
     <!-- endbuild -->
   </head>
   <body>

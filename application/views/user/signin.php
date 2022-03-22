@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>vendor/animate.css/animate.css"/>
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>styles/app.css" id="load_styles_before"/>
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>styles/app.skins.css"/>
+    <link rel="shortcut icon" href="<?php echo ASSET_URL;?>images/favicon.ico" />
     <!-- endbuild -->
   </head>
   <body>

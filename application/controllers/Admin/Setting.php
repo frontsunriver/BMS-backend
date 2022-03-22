@@ -441,9 +441,7 @@ class Setting extends My_Controller
         try {
             if(count($ownerList) > 0) {
                 foreach ($ownerList as $item) {
-                    if(!isset($item['token']) && $item['token'] != "") {
-                        sendNotification($item['token'], $title, $body);
-                    }
+                    $this->sendNotification($item['token'], $title, $body);
                 }
             }
             $result['success'] = true;

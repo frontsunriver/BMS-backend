@@ -18,16 +18,13 @@
     
     <title><?php echo $page_title?></title>
 
-    <!-- page stylesheets -->
-    <!-- end page stylesheets -->
-
-    <!-- build:css({.tmp,app}) styles/app.min.css -->
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>vendor/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>vendor/pace/themes/blue/pace-theme-minimal.css"/>
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>vendor/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>vendor/animate.css/animate.css"/>
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>styles/app.css" id="load_styles_before"/>
     <link rel="stylesheet" href="<?php echo ASSET_URL;?>styles/app.skins.css"/>
+    <link rel="shortcut icon" href="<?php echo ASSET_URL;?>images/favicon.ico" />
     <!-- endbuild -->
   </head>
   <body>

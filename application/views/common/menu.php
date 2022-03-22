@@ -32,6 +32,14 @@
             </div>
           </a>
         </li>
+        <li>
+          <a href="<?php echo BASE_URL?>/admin/card/accessCard" class="menu_item <?php echo $menu_item == 'access_card' ? 'active' : ''; ?>" style="padding: 0px; margin-top: 50px;">
+            <div style="text-align: center; padding-top: 10px;">
+              <i class="fas fa-credit-card" style="font-size: 45px;"></i>
+              <p>Access Cards</p>
+            </div>
+          </a>
+        </li>
         <!-- <li>
           <a href="index.html" class="menu_item" style="padding: 0px; margin-top: 50px;">
             <div style="text-align: center; padding-top: 10px;">
@@ -65,6 +73,14 @@
             <div style="text-align: center; padding-top: 10px;">
               <i class="fa fa-cogs" style="font-size: 45px;"></i>
               <p>Settings</p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="<?php echo BASE_URL?>/admin/acmaintenance/dashboard" class="menu_item <?php echo $menu_item == 'ac_maintenance' ? 'active' : ''; ?>" style="padding: 0px; margin-top: 50px;">
+            <div style="text-align: center; padding-top: 10px;">
+              <i class="fas fa-universal-access" style="font-size: 45px;"></i>
+              <p>AC Maintenance</p>
             </div>
           </a>
         </li>

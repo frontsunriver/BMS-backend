@@ -130,6 +130,21 @@ $route['api/import/unit_excel']['post'] = 'Home/importUnitExcel';
 $route['api/generate/excel']['get'] = 'Home/generateExcel';
 $route['api/download']['get'] = 'Home/download';
 
+//------------Card Routes----------------
+$route['api/card/getList']['post'] = 'Card/getList';
+$route['api/card/access_add']['post'] = 'Card/accessAdd';
+
+//------------Ac Maintenance----------------
+$route['api/acmaintenance/getList']['post'] = 'Acmaintenance/getList';
+$route['api/acmaintenance/add']['post'] = 'Acmaintenance/add';
+
+//------------Visit Routes---------------
+$route['api/visit/getList']['post'] = 'Visit/getList';
+$route['api/visit/getUnitList']['post'] = 'Visit/getUnitList';
+$route['api/visit/add']['post'] = 'Visit/add';
+$route['api/visit/update']['post'] = 'Visit/update';
+$route['api/visit/delete']['post'] = 'Visit/delete';
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
