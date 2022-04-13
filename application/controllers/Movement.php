@@ -22,6 +22,19 @@ class Movement extends My_Controller
         $this->returnVal($result);
     }
 
+    public function getMoveInApproved() {
+        $request_body = file_get_contents('php://input');
+        $param = json_decode($request_body, true);
+        $param['status'] = 2;
+        $param['move_type'] = 1;
+        $result = array();
+        $list = array();
+        $list = $this->movementModel->getList($param);
+        $result['success'] = true;
+        $result['data'] = $list;
+        $this->returnVal($result);
+    }
+
     public function getIssuesReply() {
         $request_body = file_get_contents('php://input');
         $param = json_decode($request_body, true);
@@ -53,13 +66,14 @@ class Movement extends My_Controller
         $arr['tenants_visa'] = $this->uploadFile($_FILES['tenants_visa']);
         $arr['tenants_emirates_id'] = $this->uploadFile($_FILES['tenants_emirates_id']);
 
-        if($this->movementModel->add($arr)) {
-            $result['message'] = "Add successfully.";
-            $result['success'] = true;
-        }else {
-            $result['message'] = "Something error.";
-            $result['success'] = false;
-        }
+        // if($this->movementModel->moveInAdd($arr)) {
+        //     $result['message'] = "Add successfully.";
+        //     $result['success'] = true;
+        // }else {
+        //     $result['message'] = "Something error.";
+        //     $result['success'] = false;
+        // }
+        $result = $this->movementModel->moveInAdd($arr);
         $this->returnVal($result);
     }
     
@@ -71,7 +85,8 @@ class Movement extends My_Controller
         $arr['move_type'] = $_POST['move_type'];
         $arr['move_date'] = $_POST['move_date'];
         $arr['user_id'] = $_POST['user_id'];
-        if($this->movementModel->add($arr)) {
+        $arr['status'] = 1;
+        if($this->movementModel->outAdd($arr)) {
             $result['message'] = "Add successfully.";
             $result['success'] = true;
         }else {

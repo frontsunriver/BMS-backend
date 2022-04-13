@@ -77,6 +77,7 @@ $route['api/apartment/delete']['post'] = 'Apartment/delete';
 
 //------------Noc Move Routes---------------
 $route['api/move/getList']['post'] = 'Movement/getList';
+$route['api/move/getMoveInApproved']['post'] = 'Movement/getMoveInApproved';
 $route['api/move/getIssuesReply']['post'] = 'Movement/getIssuesReply';
 $route['api/move/add']['post'] = 'Movement/add';
 $route['api/move/outAdd']['post'] = 'Movement/outAdd';

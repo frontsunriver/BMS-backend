@@ -140,10 +140,54 @@ class Movement_Model extends CI_Model
 			return false;
 	}
 
+	public function moveInAdd($param) {
+		$this->db->select("*");
+		$this->db->where('building_id', $param['building_id']);
+		$this->db->where('unit_id', $param['unit_id']);
+		$this->db->group_start();
+		$this->db->where('move_type', 1);
+		$this->db->or_group_start();
+		$this->db->where('move_type', 2);
+		$this->db->where('status != ', 2);
+		$this->db->group_end();
+		$this->db->group_end();
+		$result = array();
+		$query = $this->db->get($this->tbl_name);
+		if ($query->num_rows() > 0) {
+			$result['message'] = "You can't request this unit.This Unit is request the move out status";
+            $result['success'] = false;
+		}else {
+			$this->db->insert($this->tbl_name, $param);
+			if($this->db->affected_rows() > 0) {
+				$result['message'] = "Add successfully.";
+            	$result['success'] = true;
+			} else {
+				$result['message'] = "Something error.";
+            	$result['success'] = false;
+            }
+		}
+		return $result;
+	}
+
 	public function update($param)
 	{
 		$this->db->set($param);
 		$this->db->where('id', $param['id']);
+		$this->db->update($this->tbl_name);
+		if($this->db->affected_rows() > 0)
+			return true;
+		else
+			return false;
+	}
+
+	public function outAdd($param)
+	{
+		$this->db->set($param);
+		$this->db->where('building_id', $param['building_id']);
+		$this->db->where('unit_id', $param['unit_id']);
+		$this->db->where('user_id', $param['user_id']);
+		$this->db->where('move_type', 1);
+		$this->db->where('status', 2);
 		$this->db->update($this->tbl_name);
 		if($this->db->affected_rows() > 0)
 			return true;
